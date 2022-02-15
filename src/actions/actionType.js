@@ -1,0 +1,5 @@
+export  const SET_USER = "SET_USER"
+export const SET_PROMISE = "SET_PROMISE"
+export const GET_POSTS1 = "GET_POSTS1"
+export const GET_POSTS2 = "GET_POSTS2"
+export const FB_USER = "FB_USER"
