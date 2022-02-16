@@ -69,21 +69,21 @@ const  Header = (props) => {
     }
 
     const userNav = () => {
-            history("/user");
+            history("/");
             window.scrollTo(0,0);
             sessionStorage.setItem("View","user");
     }
 
 
     const Streaming = () => {
-        history("/streaming");
+        history("/");
         window.scrollTo(0,0);
         sessionStorage.setItem("View","streaming");
     }
 
 
     const Music = () => {
-        history("/music");
+        history("/");
         window.scrollTo(0,0);
         sessionStorage.setItem("View","music");
     }
@@ -93,13 +93,6 @@ const  Header = (props) => {
     const runquery = () => {
         if(sessionStorage.getItem("View") === "music")
             history("/musicquery/"+query.toLowerCase());
-        else
-          if(sessionStorage.getItem("View") === "streaming")
-                history("/streamingquery/"+query.toLowerCase());
-        else
-          if(sessionStorage.getItem("View") === "home")
-                history("/homequery/"+query.toLowerCase());
-
     }
 
     const auth = () => {
@@ -324,8 +317,13 @@ object-fit:contain;
 @media(max-width:768px){
 font-size:15pt;
 margin: 0px;
-margin-top:-20px;
+margin-top:0px;
 margin-left:-20px;
+
+img{
+margin-top:0px;
+}
+
 }
 
 `;
@@ -338,6 +336,7 @@ position: relative;
 margin-top:5px;
 & > div{
 max-width:280px;
+
 input{
 border: none;
 box-shadow:none;
@@ -353,9 +352,10 @@ height: 34px;
 border-color:#dce6f1;
 vertical-align:text-top;
 text-align:left;
+margin-left:40px;
+}
+}
 
-}
-}
 @media(max-width:1200px){
 input{
 width: 178px;
@@ -404,6 +404,7 @@ height: 34px;
 border-color:#dce6f1;
 vertical-align:text-top;
 text-align:left;
+
 }
 
 @media(max-width:1200px){
@@ -443,8 +444,8 @@ const SearchIcon =  styled.div`
 width: 40px;
 position: absolute;
 z-index: 1;
-top:10px;
-left: 2px;
+top:8px;
+left: 40px;
 margin:0;
 cursor:pointer;
 display: flex;

@@ -7,11 +7,13 @@ import Bottom from './components/Bottom'
 import Footer from './components/Footer'
 import './App.css';
 import { connect } from 'react-redux';
+import ItemSelected from './components/ItemSelected';
+import BottomContainer from './components/BottomContainer';
 
 function App(props) {
 
   useEffect(() => {
-    props.LoadPost();
+    props.getUserAuth();
   },[])
   return (
     <div className="App">
@@ -25,12 +27,28 @@ function App(props) {
               </Routes>
 
               <Routes>
-                <Route    path="/" element={<Bottom/>}/>
+                <Route    path="/" element={<BottomContainer/>}/>
               </Routes>
 
               <Routes>
                 <Route    path="/" element={<Footer/>}/>
               </Routes>
+
+
+
+              <Routes>
+              <Route  path="/model/:frame/:option/"  element={<Header/>}/>
+              </Routes>
+
+  
+              <Routes>
+                <Route    path="/model/:frame/:option/" element={<ItemSelected/>}/>
+              </Routes>
+
+              <Routes>
+                <Route    path="/model/:frame/:option/" element={<Footer/>}/>
+              </Routes>
+
           </Router>
 
     </div>
@@ -45,9 +63,8 @@ const mapStateToProps = (state) => {
 
 
 const  mapDispatchToProps = (dispatch) => ({
-  LoadPost: (e) => {
-    dispatch(getListPostTop());
-    dispatch(getListPostbottom());
+  getUserAuth: (e) => {
+    dispatch(getUserAuth());
   }
 })
 

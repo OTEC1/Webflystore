@@ -1,24 +1,25 @@
 import React,{useEffect, useState} from 'react';
 import styled  from "styled-components";
-import { updatePostlikes, format } from "../actions";
+import { updatePostlikes, format, getListPostbottom } from "../actions";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from 'react-player';
 import {CloudinaryContext, Image, Transformation} from 'cloudinary-react'
 import  {MobileView, BrowserView}  from 'react-device-detect';
 import Footer from './Footer';
+import { connect } from 'react-redux';
+import { RiShoppingBag3Line } from 'react-icons/ri';
 
 
 
 const Bottom = (props) => {
 
     const history = useNavigate();
-    const [list, setlist] = useState([])
+    const [list, setlist] = useState([]);
 
 
     useEffect(() => {
-        // if(props.data.length > 0){     
-        //    setlist(props.data);
-        // }
+    setlist(props.post2);
+    console.log(props.post2);
     },[])
 
 
@@ -27,88 +28,34 @@ const Bottom = (props) => {
 
     const navigates = (x) =>{
         let frame = x.frame;
-        let useremail=x.useremail;
-        let views = x.views
-        let caller = "o";
-        
-        updatePostlikes(1,0,1,useremail,x.doc_id_a,x.doc_id_b);
-        sessionStorage.setItem("cloud",x.cloudinaryPub);
-        sessionStorage.setItem("doc_id_a",x.doc_id_a);
-        sessionStorage.setItem("doc_id_b",x.doc_id_b);
-        sessionStorage.setItem("cloudinaryPub",x.cloudinaryPub);
-        sessionStorage.setItem("exifData",x.exifData);
-        sessionStorage.setItem("media",x.media);
-        sessionStorage.setItem("writeup",x.writeup);
-        sessionStorage.setItem("date_time",x.date_time);
-        sessionStorage.setItem("likes",x.likes);
-        sessionStorage.setItem("title",x.title);
-        history('/explorecontent/'+frame+"/"+useremail+"/"+views+"/"+caller+"/"+x.doc_id_b)
+        let option = "P"
+        updatePostlikes(frame);
+        history('/model/'+frame+"/"+option)
         
       }
   
   
   
-
+   
     return(<div>
             <Container>
-                {list.map((v,i) =>
-                v.UserPost.image ?
-                 <CardShow>
-                    <BrowserView>
-                            <CloudinaryContext cloudName="otecdealings">
-                                    <Image  alt={v.UserPost.title}   width="100%" publicId={v.UserPost.cloudinaryPub}/>
-                            </CloudinaryContext>
-                    </BrowserView>
+              { list.map((v,i) =>
+                 v !== undefined && v !== null ?
+                    <CardShow onClick={(e)=>  navigates({frame: v.doc_id})}>
+                        <img src={v.img_url}/>
+                         <div id='writeUp'>
+                            {v.name.length > 100 ? v.name.substring(0,100)+" ... Read more" : v.name }
+                         </div>
+                         <div id='writeUp'>
+                            Price:$ {v.price}
+                         </div>
 
-
-                        <MobileView>
-                                <CloudinaryContext cloudName="otecdealings">
-                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}>
-                                            <Transformation  angle={v.UserPost.exifData} />
-                                        </Image>
-                                </CloudinaryContext>
-                        </MobileView>
-                        
-                        
-                        
-                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Pictureframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.image, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes, views:v.UserPost.views})}>
-                            {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
-                        </div>
-                </CardShow>
-                : v.UserPost.video ?
-
-                <CardShow>
-                        <BrowserView>
-                                <CloudinaryContext cloudName="otecdealings">
-                                        <Image  alt={v.UserPost.title}     width="100%" publicId={v.UserPost.cloudinaryPub}/>
-                                </CloudinaryContext>
-                        </BrowserView>
-
-
-                        <MobileView>
-                                <CloudinaryContext cloudName="otecdealings">
-                                        <Image  alt={v.UserPost.title}   height="300px"   width="100%" publicId={v.UserPost.cloudinaryPub}>
-                                            <Transformation  angle={v.UserPost.exifData} />
-                                        </Image>
-                                </CloudinaryContext>
-                        </MobileView>
-                        
-                        
-                        <div id='writeUp' onClick={(e)=>  navigates({frame:"Videoframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.video, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes,views:v.UserPost.views})}>
-                            {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
-                        </div>
-                </CardShow>
-
-                : v.UserPost.youtubeLink ?
-
-                <CardShow>
-                <ReactPlayer alt={v.UserPost.title}  url={v.UserPost.youtubeLink}  controls width="100%" height="50%"/>
-                <div  id='writeUp' onClick={(e)=>  navigates({frame:"Playerframe",useremail:v.User.useremail, doc_id_a:v.UserPost.doc_id_a, doc_id_b:v.UserPost.doc_id_b, title:v.UserPost.title, cloudinaryPub: v.UserPost.cloudinaryPub, exifData: v.UserPost.exifData, media: v.UserPost.youtubeLink, writeup: v.UserPost.writeup, date_time: v.UserPost.date_time, likes:v.UserPost.likes, views:v.UserPost.views})}>
-                    {v.UserPost.writeup.length > 100 ? v.UserPost.writeup.substring(0,100)+" ... Read more" : v.UserPost.writeup }
-                </div>
-                </CardShow>
-                :<p></p>
-                )}
+                         <div id='end'>
+                            <RiShoppingBag3Line  size={25}/>
+                         </div>
+                     </CardShow>
+                  : ""
+                 )}
             </Container>
 
             <Footer/>
@@ -119,7 +66,7 @@ const Bottom = (props) => {
 
 const Container = styled.div`
 position: relative;
-height: 40vh;
+height: 70vh;
 width: 100%;
 background: #f5f5f5;
 display: flex;
@@ -127,6 +74,7 @@ justify-content:center;
 align-items:center;
 flex-wrap:wrap;
 overflow-y:scroll;
+padding-top:100px;
 
 ::-webkit-scrollbar {
 display: none;
@@ -157,8 +105,16 @@ object-fit:cover;
 #writeUp{
 margin: 10px;
 padding: 5px;
+font-weight:600;
 }
 
+
+#end{
+float: right;
+margin-top:-50px;
+margin-right:10px;
+cursor: pointer;
+}
 
 @media(max-width:768px){
 margin: 2px;
@@ -169,4 +125,17 @@ height: 350px;
 `;
 
 
-export default Bottom
+const mapStateToProps = (state) => {
+    return {
+        user: state.userState.user,
+        post2: state.postState2.post2
+    }
+}
+
+
+const mapDispatcheToProps = (dispatch) => ({
+
+})
+
+
+export default connect(mapStateToProps,mapDispatcheToProps)(Bottom)

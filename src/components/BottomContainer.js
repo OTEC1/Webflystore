@@ -1,11 +1,12 @@
 import { React, useState } from "react";
 import { connect } from 'react-redux';
 import styled from "styled-components";
-import {getListPostTop} from '../actions'; 
+import {getListPostbottom} from '../actions'; 
+import Bottom from "./Bottom";
 import Sliderframe from "./Sliderframe";
 
 
-const   Middle =  (props) => {
+const   BottomContainer =  (props) => {
 
     useState(() => {
         props.LoadPost();
@@ -14,7 +15,7 @@ const   Middle =  (props) => {
   
     return (
         <Component>
-               {props.post1 !== null ? <Sliderframe post1={props.post1} /> : "loading..."}
+               {props.post2 !== null ? <Bottom post2={props.post2} /> : "loading..."}
         </Component>
     )
 }
@@ -27,13 +28,13 @@ const Component = styled.div``;
 const mapStateToProps = (state) => {
     return {
         user: state.userState.user,
-        post1: state.postState1.post1
+        post2: state.postState2.post2
     }
 }
 
 
 const mapDispatcheToProps = (dispatch) => ({
-    LoadPost: (e) =>  dispatch(getListPostTop()),
+    LoadPost: (e) =>  dispatch(getListPostbottom()),
 })
 
-export default connect(mapStateToProps,mapDispatcheToProps)(Middle);
+export default connect(mapStateToProps,mapDispatcheToProps)(BottomContainer);

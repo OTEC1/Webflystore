@@ -1,6 +1,6 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import { collection,getDocs, where, query} from 'firebase/firestore/lite';
-import { SET_USER ,SET_PROMISE,FB_USER, GET_POSTS1, GET_POSTS2} from './actionType';
+import { SET_USER ,SET_PROMISE,FB_USER, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
 import axios from 'axios';
@@ -39,7 +39,7 @@ export const setFBUSER = (payload) => ({
 
 export const setPost1 = (payload) => ({
     type: GET_POSTS1,
-    post:payload,
+    post1:payload,
 });
 
 
@@ -47,16 +47,19 @@ export const setPost1 = (payload) => ({
 
 export const setPost2 = (payload) => ({
     type: GET_POSTS2,
-    post:payload,
+    post2:payload,
 });
 
 
 
 
 
-export function handleError(error){
-console.log(error)
-}
+export const cartAdded = (payload) => ({
+    type: CART_ORDER,
+    cart: payload,
+})
+
+
 
 
 
@@ -112,17 +115,19 @@ export function signOutCustomApi() {
 
 export function  getListPostTop() {
 
-    return  async (dispatch)  => {
+    let list = [];
+    
+    return  async (dispatch) => {
             const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), where("section","==", "topview"));
             const response  =  await getDocs(data);
             if(response.empty)
                 return
 
             response.forEach(doc => {
-                console.log(doc.data());
-            })
-            
-    }
+                list.push(doc.data());
+                dispatch(setPost1(list))
+            })      
+    };
 }
 
 
@@ -131,14 +136,17 @@ export function  getListPostTop() {
 
 export function  getListPostbottom() {
 
+    let list = [];
+
     return  async (dispatch)  => {
             const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), where("section","==", "topview"));
             const response  =  await getDocs(data);
             if(response.empty)
                 return
-
+           
             response.forEach(doc => {
-                console.log(doc.data());
+                list.push(doc.data());
+                dispatch(setPost2(list))
             })
             
     }
@@ -147,15 +155,8 @@ export function  getListPostbottom() {
 
 
 
-export function  formation(datas){
-return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
-}
-
-
-
-
 export function getUserAuth(data){
-    return(dispatch)=> {
+    return (dispatch) => {
             auth.onAuthStateChanged(async (use) => {
                 if(use)
                     dispatch(setUser(use)) 
@@ -166,6 +167,36 @@ export function getUserAuth(data){
 };
 
 
+
+
+
+export function  addtocart(cart){
+        if(cart)
+            return (dispatch) => {
+                dispatch(cartAdded(cart));
+            }
+        else
+            return (dispatch) => {
+                dispatch(cartAdded(null));
+            }
+}
+
+
+
+
+
+export function handleError(error){
+    console.log(error)
+    }
+
+
+
+export function  formation(datas){
+    return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
+}
+    
+
+    
 export function app(es){
    return JSON.parse(es)
 }
@@ -175,13 +206,7 @@ export function app(es){
 
 
 
-export  function updatePostlikes(count,likes,views,email,doc_id_a,doc_id_b){
-    axios.post(process.env.REACT_APP_THUMBS_REACTION_CALL, likes !== 0 ? {User:{useremail:email},UserPost:{likes:count, doc_id_a:doc_id_a, doc_id_b:doc_id_b}} : {User:{useremail:email},UserPost:{likes:0,views:count, doc_id_a:doc_id_a, doc_id_b:doc_id_b}})
-    .then(res => {
-         //console.log(res);
-    }).catch(err => {
-        console.log(err);
-    })
+export  function updatePostlikes(count){
     
 }
 

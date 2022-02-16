@@ -9,8 +9,7 @@ const promiseReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
         case SET_PROMISE:
             return{
-                ...state,
-                promise:action.promise,
+                ...state,promise:action.promise,
             };
 
             default:
