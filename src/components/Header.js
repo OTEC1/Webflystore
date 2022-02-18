@@ -1,11 +1,12 @@
 import {React, useState ,useRef, useEffect} from 'react';
 import styled from 'styled-components'
-import {RiShoppingCartLine, RiAccountCircleFill, RiHome4Fill,RiCloseLine,RiSearch2Line,RiMenu3Line,RiAccountCircleLine, RiStore2Line,RiArrowRightCircleLine} from 'react-icons/ri'
+import {RiShoppingCartLine, RiAccountCircleFill, RiHome4Fill,RiCloseLine,RiSearch2Line,RiMenu3Line,RiAccountCircleLine, RiStore2Line,RiArrowRightCircleLine, RiStore3Line} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
-import {signOutGoogleApi,getUserAuth, signInAPIGoogle}  from  '../actions'
+import {signOutGoogleApi,getUserAuth, signInAPIGoogle, Count}  from  '../actions'
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import CartDiv from './CartDiv';
 
 
 const  Header = (props) => {
@@ -13,6 +14,7 @@ const  Header = (props) => {
     const [query, setQuery] = useState('');
     const [showdrawer, setshowdrawer] = useState(false);
     const [authen, setAuthen]= useState('Login');
+    const [isopen, setisopen] = useState('close');
     const history = useNavigate();
 
 
@@ -52,6 +54,24 @@ const  Header = (props) => {
 
 
 
+    const openCart = (e) =>{
+        e.preventDefault();
+        window.scrollTo(0,0);
+        if(props.cart)
+            switch(isopen){
+                case "open":
+                    setisopen("close");
+                    break;
+                case  "close":
+                        setisopen("open");
+                    break;
+                default: 
+                    setisopen("close");
+                    break;
+            }
+    }
+
+
     function UPDATE(){
         axios.post(process.env.REACT_APP_UPDATE_VISIT_COUNT,{count:1})
         .then(res => {
@@ -68,32 +88,24 @@ const  Header = (props) => {
         sessionStorage.setItem("View","home");
     }
 
-    const userNav = () => {
-            history("/");
-            window.scrollTo(0,0);
-            sessionStorage.setItem("View","user");
-    }
+   
 
-
-    const Streaming = () => {
-        history("/");
+    const Store = (n,i) => {
+        history("/Store");
         window.scrollTo(0,0);
-        sessionStorage.setItem("View","streaming");
     }
 
 
-    const Music = () => {
-        history("/");
-        window.scrollTo(0,0);
-        sessionStorage.setItem("View","music");
-    }
+    const UserNav  = () => {
 
+    }
     
 
+
     const runquery = () => {
-        if(sessionStorage.getItem("View") === "music")
-            history("/musicquery/"+query.toLowerCase());
+        history("/productquery/"+query.toLowerCase());
     }
+
 
     const auth = () => {
         var data = document.getElementById("authstate").innerText;
@@ -109,9 +121,7 @@ const  Header = (props) => {
   
     
 
-    function buy() {
-        
-    }
+   
 
     return (
         <>
@@ -166,9 +176,9 @@ const  Header = (props) => {
                 <Nav>
                     <Navlist>
                         
-                        <Navchild   onClick={Music}>
+                        <Navchild   onClick={(e)=> Store(0,0)}>
                             <a>
-                                <RiStore2Line
+                                <RiStore3Line
                                 size={20}
                                 color="#fff"/>
                                 <span>Store</span>
@@ -177,34 +187,32 @@ const  Header = (props) => {
 
 
 
-                        <Navchild onClick={userNav}>                               
+                        <Navchild onClick={UserNav}>                               
                                 <a>
                                 {props.user  ?
                                     (
                                     <RiAccountCircleFill
                                     size={20}
-                                    color="#0D96FF"/>
+                                    color="#00FF3C"/>
                                     ):(
                                     <RiAccountCircleLine
                                     size={20}
                                     color="#fff"/>
                                     )}
-                                    <span  style={ props.user ? {color:"#0D96FF"} :  {color:"#fff"} }>User</span>
+                                    <span  style={ props.user ? {color:"#00FF3C"} :  {color:"#fff"} }>User</span>
                                 </a>
                         </Navchild>
 
 
 
 
-                        <Navchild onClick={userNav}   onClick={buy}>
+                        <Navchild onClick={(e)=> openCart(e)}>
                             <a>
                             <RiShoppingCartLine
                               size={20}
                               color="#fff"
                               />
-                           
-                                <span>Cart   {props.cart ? "+ "+props.cart.size :""}</span>
-                           
+                                <span>Cart {props.cart ? "+"+Count(props.cart) :""}</span>
                             </a>
                         </Navchild>
                         
@@ -217,11 +225,11 @@ const  Header = (props) => {
                                 size={20}
                                 color="#fff"/>
                                 {props.user ?
-                                <span id='authstate'> {props.user ? authen: authen}</span>
+                                <span id='authstate'> {props.user ? "Logout": "Login"}</span>
                                 :props.fbuser ?
-                                <span id='authstate'>{props.fbuser ? authen: authen}</span>
-                                :<span id='authstate'>Login</span>
-                                 }
+                                <span id='authstate'>{props.fbuser ?  "Logout": "Login"}</span>
+                                :""
+                                }
 
                             </a>
                         </Navchild>
@@ -231,6 +239,9 @@ const  Header = (props) => {
 
             </Content>
         </Container>
+        <CartCon>
+             <CartDiv  isopen={isopen}  openCart={openCart} />
+        </CartCon>
         </>
     )
 
@@ -238,7 +249,7 @@ const  Header = (props) => {
 
 
 const Container = styled.div`  
-background-image: linear-gradient(to top right,#1f505f, #07091C);
+background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
 left: 0;
 padding: 0  24px;
 position:  fixed;
@@ -247,8 +258,12 @@ width: 100%;
 z-index: 555;
 height: 60px;
 
+`;
 
 
+
+const CartCon = styled.div`
+display: flex;
 `;
 
 
@@ -256,7 +271,7 @@ const ShowDiv = styled.div`
 position: absolute;
 height: 100vh;
 width: 100%;
-z-index:600;
+z-index:99999;
 top:0;
 
 
@@ -265,7 +280,7 @@ top:0;
 #mainview{
 height: 100vh;
 width: 100%;
-background-image: linear-gradient(to top right,#1f505f, #07091C); 
+background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
 }
 
 
@@ -459,7 +474,7 @@ display: none;
 const SearchIcons = styled(SearchIcon)`
 @media(max-width:768px){
 display:block;
-margin-left:15px;
+margin-left:-25px;
 }
 `;
 
@@ -497,7 +512,7 @@ justify-content: center;
 align-items: center;
 position: fixed;
 bottom: 0;
-background-image: linear-gradient(to top right,#1f505f, #07091C);
+background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
 }
 `;
 
@@ -540,6 +555,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 margin-left:25px;
+white-space: nowrap;
 }
 } 
 
@@ -632,6 +648,7 @@ const mapStateToProps = (state) => {
     return{
         user: state.userState.user,
         fbuser:state.fbState.fbuser,
+        cart:state.cartState.cart,
     };
 };
 

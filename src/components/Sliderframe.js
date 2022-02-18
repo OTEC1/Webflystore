@@ -14,6 +14,7 @@ const   Sliderframe =  (props) => {
     const [index, setindex] = useState(0);
     const [show, setshow] = useState('');
     const [list , setlist] = useState([]);
+    const [doc_id, setdoc_id] = useState('');
 
     useEffect(() => {
         setlist(props.post1);
@@ -30,7 +31,7 @@ const   Sliderframe =  (props) => {
 
     return (
         <Component>
-            <button>
+            <button onClick={(e) =>  navigates({frame: doc_id})}>
                 {show}
             </button>
                     <Slider 
@@ -38,13 +39,12 @@ const   Sliderframe =  (props) => {
                         duration={3500} 
                         previousButton={<RiArrowLeftCircleLine color="red"/>} 
                         nextButton={<RiArrowRightCircleLine color="red"/>}
-                        onSlideChange={(e) => { setindex(e.slideIndex); setshow(e.slideIndex); }}>
+                        onSlideChange={(e) => { setindex(e.slideIndex); setshow(list[e.slideIndex].name); setdoc_id(list[e.slideIndex].doc_id) }}>
                             
                                 {list.map((v,i) => 
                                     v !== undefined ?
                                         <Container onClick={(e) =>  navigates({frame: v.doc_id})}>
                                             <img src={v.img_url}/>
-                                            <h1>{v.name}</h1>
                                         </Container>
                                       : ""
                                     )
@@ -76,15 +76,18 @@ width: 100px;
 height: 40px;
 background: #fff;
 color: #000;
-font-family: "Poppins", sans-serif;
-z-index:99999;
+z-index:999;
 border-radius:20px;
+font-weight:800;
+font-family: "Poppins", sans-serif;
 cursor: pointer;box-shadow: inset 0 0 0 1px rgba(0 0 0 /60%),inset 0 0 0 2px rgba(0 0 0 /0%) inset 0 0 0 1px rgba(0 0 0 /0);
-box-shadow: inset 0 0 0 1px rgba(0 0 0 /60%),
+box-shadow: inset 0 0 0 1px rgba(0 0 0 /60%);
+
 &:hover{
 background-color: rgba(207,207, 207, 0.25);
 color: rgba(0, 0, 0, 0.75);
 }
+
 }
 
 

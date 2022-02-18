@@ -35,7 +35,7 @@ async function runnquery(){
      
 }
 
- return(<Item  dataPass={datas} id={frame} model={option} />)
+ return( <Item  dataPass={datas} id={frame} model={option} />)
 
 }
 

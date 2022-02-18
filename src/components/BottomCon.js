@@ -6,7 +6,7 @@ import Bottom from "./Bottom";
 import Sliderframe from "./Sliderframe";
 
 
-const   BottomContainer =  (props) => {
+const   BottomCon =  (props) => {
 
     useState(() => {
         props.LoadPost();
@@ -37,4 +37,4 @@ const mapDispatcheToProps = (dispatch) => ({
     LoadPost: (e) =>  dispatch(getListPostbottom()),
 })
 
-export default connect(mapStateToProps,mapDispatcheToProps)(BottomContainer);
+export default connect(mapStateToProps,mapDispatcheToProps)(BottomCon);

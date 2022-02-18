@@ -1,5 +1,5 @@
 import React,{Component, useEffect} from 'react';
-import { getUserAuth , getListPostTop, getListPostbottom} from './actions';
+import { getUserAuth , getListPostTop, getListPostbottom,addtocart} from './actions';
 import {BrowserRouter as  Router,Route, Routes}  from 'react-router-dom';
 import Header from './components/Header'
 import Middle from './components/Middle'
@@ -8,13 +8,14 @@ import Footer from './components/Footer'
 import './App.css';
 import { connect } from 'react-redux';
 import ItemSelected from './components/ItemSelected';
-import BottomContainer from './components/BottomContainer';
+import BottomCon from './components/BottomCon';
 
 function App(props) {
 
   useEffect(() => {
     props.getUserAuth();
   },[])
+  
   return (
     <div className="App">
             <Router>
@@ -27,26 +28,36 @@ function App(props) {
               </Routes>
 
               <Routes>
-                <Route    path="/" element={<BottomContainer/>}/>
+                <Route    path="/" element={<BottomCon/>}/>
               </Routes>
 
-              <Routes>
-                <Route    path="/" element={<Footer/>}/>
-              </Routes>
-
-
+          
 
               <Routes>
               <Route  path="/model/:frame/:option/"  element={<Header/>}/>
               </Routes>
 
-  
               <Routes>
                 <Route    path="/model/:frame/:option/" element={<ItemSelected/>}/>
               </Routes>
 
               <Routes>
                 <Route    path="/model/:frame/:option/" element={<Footer/>}/>
+              </Routes>
+
+
+
+
+              <Routes>
+              <Route  path="/about/:index1/:index2/"  element={<Header/>}/>
+              </Routes>
+
+              <Routes>
+              <Route  path="/about/:index1/:index2/"   element={<Middle/>}/>
+              </Routes>
+
+              <Routes>
+                <Route path="/about/:index1/:index2/"  element={<BottomCon/>}/>
               </Routes>
 
           </Router>
@@ -65,6 +76,7 @@ const mapStateToProps = (state) => {
 const  mapDispatchToProps = (dispatch) => ({
   getUserAuth: (e) => {
     dispatch(getUserAuth());
+    dispatch(addtocart(localStorage.getItem("cart")))
   }
 })
 

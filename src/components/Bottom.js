@@ -34,6 +34,10 @@ const Bottom = (props) => {
         
       }
   
+
+
+
+
   
   
    
@@ -74,14 +78,14 @@ justify-content:center;
 align-items:center;
 flex-wrap:wrap;
 overflow-y:scroll;
-padding-top:100px;
+padding-top:50px;
 
 ::-webkit-scrollbar {
 display: none;
 }
 
 @media(max-width:768px){
-margin-top:200px;
+margin-top:10px;
 }
 `;
 
@@ -117,7 +121,7 @@ cursor: pointer;
 }
 
 @media(max-width:768px){
-margin: 2px;
+margin: 5px;
 width: 90%;
 height: 350px;
 

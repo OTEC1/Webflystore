@@ -97,7 +97,7 @@ const Footers = styled.div`
 position: relative;
 height: auto;
 width: 100%;
-background-image: linear-gradient(to top right,#1f505f, #07091C);
+background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
 bottom: 0;
 display: flex;
 flex-wrap:wrap;

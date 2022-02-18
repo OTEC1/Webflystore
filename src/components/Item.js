@@ -95,9 +95,6 @@ const Item = (props) => {
         localStorage.setItem("cart",JSON.stringify(sessioncart));
         props.addtocart();
 
-
-        console.log(localStorage.getItem("cart"));
-
     }
 
 
@@ -178,7 +175,7 @@ const Item = (props) => {
                                 <Detailslayout>
                                     <Social_user_handles>
                                         <User>
-                                            <img  src={props.user.image}/>
+                                            <img  src={props.user.photoURL}/>
                                         </User>
 
                                         <Social>
@@ -231,7 +228,8 @@ const Item = (props) => {
                                                 </Buy_section>
 
                                                 <Add2cart>
-                                                    <button onClick={(evt) => addItemtosessioncart({name:e.message.UserPost.title, img_url: props.model === "P" ? e.message.UserPost.image : e.message.UserPost.video, quantity:quantity, doc_id:props.id,model:props.model, price:e.message.UserPost.price})}>ADD TO CART
+                                                    <button onClick={(evt) => addItemtosessioncart({name:e.name, img_url: props.model === "P" ? e.img_url : e.video, quantity:quantity, doc_id:props.id, model:props.model, price:e.price})}>
+                                                        ADD TO CART
                                                         <RiShoppingCart2Line
                                                         id="cart"
                                                         size="15"
@@ -710,6 +708,7 @@ text-align:right;
 #thumb{
 position: relative;
 top:7px;
+cursor: pointer;
 }
 
 @media(max-width:768px){

@@ -162,7 +162,9 @@ export function getUserAuth(data){
                     dispatch(setUser(use)) 
             });
              if(data)
-                dispatch(setFBUSER(app(data)))                
+                dispatch(setFBUSER(app(data)))  
+                
+                
     };
 };
 
@@ -203,6 +205,12 @@ export function app(es){
 
 
 
+
+
+
+export function Count(list) {
+    return  JSON.parse(list).length;
+}
 
 
 
