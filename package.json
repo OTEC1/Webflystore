@@ -15,6 +15,7 @@
     "react-animated-slider": "^1.1.4",
     "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
+    "react-facebook-sdk": "^1.1.1",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^4.0.0",
     "react-player": "^2.9.0",
@@ -27,6 +28,7 @@
     "styled-components": "^5.3.3",
     "sweetalert2": "^11.4.0",
     "util": "^0.12.4",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

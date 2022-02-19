@@ -1,6 +1,6 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import { collection,getDocs, where, query} from 'firebase/firestore/lite';
-import { SET_USER ,SET_PROMISE,FB_USER, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
+import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
 import axios from 'axios';
@@ -29,10 +29,6 @@ export const setPromise = (payload) => ({
 
 
 
-export const setFBUSER = (payload) => ({
-    type: FB_USER,
-    fbuser:payload,
-});
 
 
 
@@ -66,11 +62,16 @@ export const cartAdded = (payload) => ({
 
 
 export function signInfacebookApi(m){
-    console.log("facebook",m);
     return (dispatch) => {
-            dispatch(setFBUSER(m))
+            console.log(m.profile)
+            dispatch(setUser(m.profile))
         }
 };
+
+
+export function handleError(error){
+    console.log(error)
+    }
 
 
 
@@ -94,7 +95,6 @@ export function signOutGoogleApi(){
     return (dispatch) => {
         auth.signOut().then(() => {
             dispatch(setUser(null));
-            dispatch(setFBUSER(null))
         })
         .catch((err) => {
             console.log(err);
@@ -104,19 +104,10 @@ export function signOutGoogleApi(){
 
 
 
-export function signOutCustomApi() {
-    console.log("Custom");
-    return (dispatch) => {
-        dispatch(setUser(null));
-    };
-}
-
 
 
 export function  getListPostTop() {
-
     let list = [];
-    
     return  async (dispatch) => {
             const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), where("section","==", "topview"));
             const response  =  await getDocs(data);
@@ -160,11 +151,7 @@ export function getUserAuth(data){
             auth.onAuthStateChanged(async (use) => {
                 if(use)
                     dispatch(setUser(use)) 
-            });
-             if(data)
-                dispatch(setFBUSER(app(data)))  
-                
-                
+            });     
     };
 };
 
@@ -187,26 +174,11 @@ export function  addtocart(cart){
 
 
 
-export function handleError(error){
-    console.log(error)
-    }
-
-
 
 export function  formation(datas){
     return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
 }
     
-
-    
-export function app(es){
-   return JSON.parse(es)
-}
-
-
-
-
-
 
 export function Count(list) {
     return  JSON.parse(list).length;
@@ -219,11 +191,22 @@ export  function updatePostlikes(count){
 }
 
 
+export function RUNCHEK(){
+return 0;
+}
 
 
-
-
-
+export function SUM(cart_list){
+   
+    let track=0,sum=0;
+    if(cart_list){
+        for(let n=0; n<cart_list.length; n++){
+                track = cart_list[n].quantity *  cart_list[n].price;
+                sum = sum + track;
+        }
+    }
+    return sum;
+}
 
 
 

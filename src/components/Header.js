@@ -3,16 +3,19 @@ import styled from 'styled-components'
 import {RiShoppingCartLine, RiAccountCircleFill, RiHome4Fill,RiCloseLine,RiSearch2Line,RiMenu3Line,RiAccountCircleLine, RiStore2Line,RiArrowRightCircleLine, RiStore3Line} from 'react-icons/ri'
 import { useNavigate }  from 'react-router-dom'
 import { connect } from 'react-redux';
-import {signOutGoogleApi,getUserAuth, signInAPIGoogle, Count}  from  '../actions'
+import { Count, getUserAuth}  from  '../actions'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import CartDiv from './CartDiv';
+import SignInMethod  from './SignInmethod';
 
 
 const  Header = (props) => {
 
     const [query, setQuery] = useState('');
     const [showdrawer, setshowdrawer] = useState(false);
+    const [showModel, setShowModel] = useState(false);
+    const [loginstate, setloginstate] = useState("");
     const [authen, setAuthen]= useState('Login');
     const [isopen, setisopen] = useState('close');
     const history = useNavigate();
@@ -29,29 +32,7 @@ const  Header = (props) => {
             window.addEventListener("beforeunload", (ev) => {  
                sessionStorage.setItem("visitCount",null);
             });
-            getUserAuth(window.sessionStorage.getItem("fbuser"));
-            sessionStorage.setItem("SignInUser",props.user.User ? JSON.stringify(props.user) : "")
     },[])
-
-
-    
-    const SortDiv = () => {
-
-    } 
-
-    const GetAlbumPlaylist = (e) => {
-
-    }
-
-
-    const SortByGenre = () => {
-
-    }
-
-    const GetDownloadHighCount = (e) => {
-
-    }
-
 
 
     const openCart = (e) =>{
@@ -66,7 +47,7 @@ const  Header = (props) => {
                         setisopen("open");
                     break;
                 default: 
-                    setisopen("close");
+                       setisopen("close");
                     break;
             }
     }
@@ -91,7 +72,7 @@ const  Header = (props) => {
    
 
     const Store = (n,i) => {
-        history("/Store");
+        history("/store");
         window.scrollTo(0,0);
     }
 
@@ -107,11 +88,6 @@ const  Header = (props) => {
     }
 
 
-    const auth = () => {
-        var data = document.getElementById("authstate").innerText;
-        if(data === "Login")
-            props.signInAPIGoogle();         
-    }
 
 
     function show(){
@@ -119,6 +95,29 @@ const  Header = (props) => {
         window.scrollTo(0,0);
     }
   
+
+
+
+    const  sendRequestToModel = (event) => {
+        event.preventDefault();
+        var data = document.getElementById("authstate").innerText;
+        setloginstate(data);
+        switch(showModel){
+            case "open":
+                setShowModel("close");
+                break;
+
+            case "close":
+                setShowModel("open");
+            break;
+
+            default:
+                setShowModel("close");
+                break;
+        };
+        }
+
+
     
 
    
@@ -149,7 +148,7 @@ const  Header = (props) => {
             <Content>
                    <Webdealit onClick={homeNav}>
                     <img src="/images/shop.png"/>
-                     <h5>WebflyStore</h5> 
+                     <h5>Webflystore</h5> 
                     </Webdealit>
 
 
@@ -219,18 +218,12 @@ const  Header = (props) => {
 
 
 
-                        <Navchild  onClick={auth}>
+                        <Navchild  onClick={sendRequestToModel}>
                             <a>
                                 <RiArrowRightCircleLine
                                 size={20}
                                 color="#fff"/>
-                                {props.user ?
                                 <span id='authstate'> {props.user ? "Logout": "Login"}</span>
-                                :props.fbuser ?
-                                <span id='authstate'>{props.fbuser ?  "Logout": "Login"}</span>
-                                :""
-                                }
-
                             </a>
                         </Navchild>
 
@@ -239,9 +232,12 @@ const  Header = (props) => {
 
             </Content>
         </Container>
+
         <CartCon>
              <CartDiv  isopen={isopen}  openCart={openCart} />
         </CartCon>
+        
+        <SignInMethod showModel={showModel}   sendRequestToModel={sendRequestToModel}  loginstate={loginstate} />
         </>
     )
 
@@ -647,17 +643,13 @@ margin-left:18px;
 const mapStateToProps = (state) => {
     return{
         user: state.userState.user,
-        fbuser:state.fbState.fbuser,
         cart:state.cartState.cart,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    signInAPIGoogle: (e) => dispatch(signInAPIGoogle()),
-});
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);
 
 
 

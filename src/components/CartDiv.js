@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {formation} from '../actions'
+import {formation,SUM,RUNCHEK,addtocart} from '../actions'
+import {Ri4KLine, RiAddBoxLine, RiAddCircleFill, RiAddCircleLine, RiBankCard2Line,RiCloseCircleFill,RiCloseCircleLine, RiFileReduceLine, RiLineLine, RiPulseLine, RiTakeawayLine} from 'react-icons/ri'
 
 
 const CartDiv = (props) => {
@@ -9,6 +10,47 @@ const CartDiv = (props) => {
     const closeCartView = (v) => {
         props.openCart(v);
     }
+
+
+
+
+    let sessioncart = [];
+    const Delete_Update = (id,list,index) => {
+       
+    sessioncart = [];
+
+    for(let y=0; y<list.length; y++)
+        if(id === list[y].item_id)
+            if(index ===1)
+               var e = list.splice(y,1);
+
+               else if(index === 2 )
+                list[y].quantity++;
+                
+               else if(index === 3)
+                    list[y].quantity--; 
+
+            if(list){
+                    for(var n=0; n <= list.length; n++)
+                            if(list[n] != null && list[n] != undefined)
+                                sessioncart.push(list[n]);
+
+                localStorage.setItem("cart",JSON.stringify(sessioncart));
+                props.addtocart(); 
+                console.log(list) 
+            }
+
+            
+
+    }
+
+
+
+
+
+
+
+
 
     return(
         <>
@@ -22,64 +64,58 @@ const CartDiv = (props) => {
                 </div>
 
                 <Items>
-                    { props.cart  ? JSON.parse(props.cart).map((v,i) => <ItemsInside>
-                                                            <table>
-
-                                                             
-
-
-                                                                <tr>
-                                                                    <td>
-                                                                      <img src={"/"+v.img_url} /> 
-                                                                    </td>
-                                                                </tr>
-                                                                </table>
-
+                    { props.cart  ? JSON.parse(props.cart).map((v,i) => 
+                         <ItemsInside>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                            <RiCloseCircleFill color="#8CC5F1"  onClick={(e) => Delete_Update(v.item_id,JSON.parse(props.cart),1)} id="remove"/>
+                                            <img src={"/"+v.img_url} /> 
+                                               
+                                            </td>
+                                        </tr>
+                                        </table>
 
 
-                                                                <table>
-                                                                <tr>
-                                                                    <td>
-                                                                        <button id="remove">x</button>
-                                                                    </td>
-                                                                </tr>
 
-                                                                <tr>
-                                                                    <td>
-                                                                      <h3>{formation(v.name)}</h3>
-                                                                    </td>
-                                                                </tr>
+                                        <table>
+                                        <tr>
+                                            <td>
+                                                <h3>{formation(v.name)}</h3>
+                                            </td>
+                                        </tr>
 
-                                                               
-
-
-                                                                <tr>
-                                                                    <td>
-                                                                     <button>+</button>   <button>-</button>
-                                                                    </td>
-                                                                </tr>
-
-                                                            
-
-                                                                <tr>
-                                                                    <td>
-                                                                        <label>Qty: 7</label>
-                                                                    </td>
-                                                                </tr>
+                                        
+                                        <tr>
+                                            <td>
+                                                <RiAddCircleFill  size={25}  color="#8CC5F1"  onClick={(e) => Delete_Update(v.item_id,JSON.parse(props.cart),2)} />  &nbsp;&nbsp;   <h4 onClick={(e) => Delete_Update(v.item_id,JSON.parse(props.cart),3)}>-</h4>
+                                            </td>
+                                        </tr>
 
 
-                                                                <tr>
-                                                                    <td>
-                                                                        <label>Total: 7</label>
-                                                                    </td>
-                                                                </tr>
+                                        <tr>
+                                            <td>
+                                                <label>Qty: {v.quantity}</label>
+                                            </td>
+                                        </tr>
 
-                                                            </table>
-                                                            
-                                                     </ItemsInside>) : ""}
 
-                </Items>
+                                        <tr>
+                                            <td>
+                                                <label>Total: ${v.price}</label>
+                                            </td>
+                                        </tr>
 
+                                    </table>
+                                    
+                                </ItemsInside>) : ""}
+                           </Items>
+
+                            <SubTotal>
+                                <h5>Sub Total:  &nbsp; &nbsp;  ${SUM(JSON.parse(props.cart))}</h5>
+                                <h5>Tax:  {RUNCHEK()}</h5>
+                                <button id="checkout">Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
+                            </SubTotal>
             </Container>
             : ""
          }
@@ -91,7 +127,7 @@ const CartDiv = (props) => {
 const Container = styled.div`
 position: absolute;
 right: 0;
-width: 30%;
+width: 25%;
 height: 100vh;
 background: #f5f5f5;
 z-index:999999;
@@ -126,7 +162,7 @@ width: 100%;
 
 const Items = styled.div`
 width: 100%;
-height: 90vh;
+height: 70vh;
 overflow-x:hidden;
 overflow-y:scroll;
 
@@ -144,6 +180,8 @@ const ItemsInside  =  styled.div`
 display: flex;
 margin-top:45px;
 font-family: "Poppins", sans-serif;
+flex-direction:column;
+position: relative;
 
 
 
@@ -156,29 +194,41 @@ height: 170px;
 object-fit:cover;
 }
 
+
 tr td{
 display: flex;
-justify-content:space-between;
+justify-content:space-evenly;
 
-button{
+
+h4{
 cursor:pointer;
 border-radius:50%;
-padding: 3px;
-border: none;
-height: 25px;
-width: 25px;
-font-weight:700;
+height: 22px;
+width:20px;
+text-align:center;
+color: #fff;
+background: #8CC5F1;
 }
+
 
 h3{
 margin-top: 5px;
 margin-bottom:5px;
 }
+
 }
 
+
+
 #remove{
-margin-left:auto;
+position: absolute;
+right: 0;
+padding: 7px;
+height: 30px;
+width: 30px;
+margin-top:-27px;
 }
+
 
 label{
 font-size:9pt; 
@@ -195,26 +245,36 @@ max-width:100%;
 min-width:100%;
 }
 
-
-
 tr td{
-justify-content:left;
-
-button{
-margin: 10px;
-}
-
-h3{
-margin-left:12px;
-}
-
-label{
-margin-left:12px;
-}
-
+justify-content:space-evenly;
+text-align:left;
 }
 }
 `;
+
+
+
+const SubTotal = styled.div`
+
+h5{
+margin:20px;
+}
+
+#checkout{
+display: flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+width: 90%;
+color:#000;
+margin:auto;
+padding-bottom: 7px;
+padding-top:5px;
+text-transform: uppercase;
+border-radius: 1 solid #000;
+}
+`;
+
 
 const mapStateToProps = (state) => {
 
@@ -225,4 +285,11 @@ const mapStateToProps = (state) => {
 
 }
 
-export default connect(mapStateToProps)(CartDiv);
+
+const mapDispatchStatetoProps = (dispatch) => ({
+addtocart : (e) => { dispatch(addtocart(localStorage.getItem("cart")))}
+})
+
+
+export default connect(mapStateToProps,mapDispatchStatetoProps)(CartDiv);
+

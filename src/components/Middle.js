@@ -9,7 +9,7 @@ import Sliderframe from "./Sliderframe";
 const   Middle =  (props) => {
 
 
-    const [weekly, setweekly]  = useState('Shop 5 item and get one month netflix subscription');
+    const [weekly, setweekly]  = useState('Weekly Giveaway Shop 5 item and get one free 💕');
 
 
     useState(() => {
@@ -49,7 +49,7 @@ const MiddleBottom = styled.div`
 height: 200px;
 width: 100%;
 background: #ffffff;
-margin-top:10px;
+padding-top:100px;
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 font-size:30pt;
 

@@ -11,6 +11,7 @@ import { RiAddLine, RiBankCard2Line, RiCommandLine, RiPencilLine, RiPulseLine, R
 import ReactPlayer from 'react-player';
 import {BrowserView, MobileView} from 'react-device-detect'
 import {addtocart} from '../actions'
+import {v4 as uuid4}  from 'uuid';
 
 
 
@@ -20,7 +21,7 @@ import {addtocart} from '../actions'
 const Item = (props) => {
 
 
-    const list  =  ["facebook.svg", "twitter.svg","whatsapp.svg","instragram.svg"];
+    const list  =  ["facebook.png", "twitter.svg","whatsapp.svg","instragram.svg"];
     const [showModel, setShowModel] = useState("close");
     const [rate, setRating] = useState(0);
     const [respones, setResponse] = useState(''); 
@@ -175,7 +176,7 @@ const Item = (props) => {
                                 <Detailslayout>
                                     <Social_user_handles>
                                         <User>
-                                            <img  src={props.user.photoURL}/>
+                                            <img  src="/images/unnamed.png"/>
                                         </User>
 
                                         <Social>
@@ -228,7 +229,7 @@ const Item = (props) => {
                                                 </Buy_section>
 
                                                 <Add2cart>
-                                                    <button onClick={(evt) => addItemtosessioncart({name:e.name, img_url: props.model === "P" ? e.img_url : e.video, quantity:quantity, doc_id:props.id, model:props.model, price:e.price})}>
+                                                    <button onClick={(evt) => addItemtosessioncart({name:e.name, img_url: props.model === "P" ? e.img_url : e.video, quantity:quantity, doc_id:props.id, model:props.model, price:e.price, item_id:uuid4()})}>
                                                         ADD TO CART
                                                         <RiShoppingCart2Line
                                                         id="cart"
@@ -890,6 +891,7 @@ width: 30px;
 height: 30px;
 border-radius: 50%;
 margin: 10px;
+object-fit:contain;
 }
 
 @media(max-width:768px){
