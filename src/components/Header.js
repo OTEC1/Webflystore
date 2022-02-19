@@ -271,7 +271,7 @@ const ShowDiv = styled.div`
 position: absolute;
 height: 100vh;
 width: 100%;
-z-index:99999;
+z-index:999999;
 top:0;
 
 

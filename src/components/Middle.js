@@ -62,7 +62,7 @@ font-weight:900;
 font-family: "Poppins", sans-serif;
 margin-left:auto;
 margin-right:auto;
-padding-top:30px;
+padding-top:50px;
 }
 
 @media(max-width:768px){
