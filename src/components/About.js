@@ -18,7 +18,7 @@ const About = (props) => {
                         <td>
                           <h5 id='div1'>
                             <RiMusicFill size={25}/>
-                             &nbsp;&nbsp; Webflyblog helps it viewer stay current on relevant entertainment 
+                             &nbsp;&nbsp; WebflyStore helps it viewer stay current on relevant entertainment 
                             news We are also into music promotion offer
                           </h5>
                         </td>
@@ -29,7 +29,7 @@ const About = (props) => {
                             <h5 id='div2'>
                             <RiAppsFill size={25}/>
                              &nbsp;&nbsp;
-                               Webfly business also extends to
+                             WebflyStore business also extends to
                                  mobile  app development
                                  and website design
                             </h5>
@@ -86,7 +86,9 @@ const About = (props) => {
 
 const Container = styled.div`
 display: flex;
-height: ;
+height: 100vh;
+padding-bottom:700px;
+background: #8CC5F1;
 
 div{
 border-radius:10px;

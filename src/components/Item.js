@@ -425,6 +425,13 @@ object-fit: cover;
 @media(max-width:768px){
 width: 100%;
 height: 70%;
+
+
+img{
+height: 300px;
+min-height:300px;
+max-height:300px;
+}
 }
 
 

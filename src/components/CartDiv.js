@@ -202,7 +202,6 @@ justify-content:left;
 
 button{
 margin: 10px;
-
 }
 
 h3{

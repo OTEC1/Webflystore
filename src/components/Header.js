@@ -148,7 +148,7 @@ const  Header = (props) => {
         <Container>
             <Content>
                    <Webdealit onClick={homeNav}>
-                    <img src="/images/login_logo.png"/>
+                    <img src="/images/shop.png"/>
                      <h5>WebflyStore</h5> 
                     </Webdealit>
 
@@ -255,7 +255,7 @@ padding: 0  24px;
 position:  fixed;
 top: 0;
 width: 100%;
-z-index: 555;
+z-index: 99999;
 height: 60px;
 
 `;

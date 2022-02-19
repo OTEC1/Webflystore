@@ -9,6 +9,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import ItemSelected from './components/ItemSelected';
 import BottomCon from './components/BottomCon';
+import About from './components/About'
 
 function App(props) {
 
@@ -53,11 +54,11 @@ function App(props) {
               </Routes>
 
               <Routes>
-              <Route  path="/about/:index1/:index2/"   element={<Middle/>}/>
+              <Route  path="/about/:index1/:index2/"   element={<About/>}/>
               </Routes>
 
               <Routes>
-                <Route path="/about/:index1/:index2/"  element={<BottomCon/>}/>
+                <Route path="/about/:index1/:index2/"  element={<Footer/>}/>
               </Routes>
 
           </Router>
