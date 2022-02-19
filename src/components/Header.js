@@ -102,6 +102,7 @@ const  Header = (props) => {
         event.preventDefault();
         var data = document.getElementById("authstate").innerText;
         setloginstate(data);
+        window.scrollTo(0,0);
         switch(showModel){
             case "open":
                 setShowModel("close");
