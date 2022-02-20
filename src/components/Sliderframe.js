@@ -6,6 +6,7 @@ import 'react-animated-slider/build/horizontal.css';
 import {RiArrowLeftCircleLine,RiArrowRightCircleLine} from 'react-icons/ri'
 import {getListPostTop,updatePostlikes} from '../actions'; 
 import { useNavigate } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 
 const   Sliderframe =  (props) => {
@@ -32,7 +33,7 @@ const   Sliderframe =  (props) => {
     return (
         <Component>
             <button onClick={(e) =>  navigates({frame: doc_id})}>
-                {show}
+                { show ? show : <Loader   width={25}  height={25} type="Oval"  color="#000"   /> }
             </button>
                     <Slider 
                         autoplay={1} 
@@ -72,7 +73,8 @@ button{
 position: absolute;
 margin-top:20%;
 margin-left:45%;
-width: 100px;
+width: auto;
+min-width:100px;
 height: 40px;
 background: #fff;
 color: #000;

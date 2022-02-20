@@ -23,6 +23,7 @@ const   Middle =  (props) => {
                <MiddleBottom>
                     <div>{weekly}</div>
                </MiddleBottom>
+               <h5>FEATURED PRODUCTS</h5>
         </Component>
     )
 }
@@ -37,11 +38,25 @@ text-align:center;
 margin-top:20%;
 padding-bottom:100px;
 }
+
+
+
+h5{
+text-align:center;
+font-weight:900;
+font-family: "Poppins", sans-serif;  
+padding-top:100px;
+background: #f5f5f5;
+}
+
+
 @media(max-width:768px){
 #home{
 margin-top:45vh;    
 }    
 }
+
+
 `;
 
 
@@ -64,6 +79,8 @@ margin-left:auto;
 margin-right:auto;
 padding-top:50px;
 }
+
+
 
 @media(max-width:768px){
 margin-top:220px;

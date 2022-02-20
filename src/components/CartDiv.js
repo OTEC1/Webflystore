@@ -24,11 +24,13 @@ const CartDiv = (props) => {
             if(index ===1)
                var e = list.splice(y,1);
 
-               else if(index === 2 )
-                list[y].quantity++;
+               else if(index === 2 ){
+                        if( list[y].quantity < 100)
+                                list[y].quantity++;
                 
-               else if(index === 3)
-                    list[y].quantity--; 
+               }else if(index === 3)
+                    if( list[y].quantity > 1)
+                            list[y].quantity--; 
 
             if(list){
                     for(var n=0; n <= list.length; n++)
@@ -70,7 +72,7 @@ const CartDiv = (props) => {
                                         <tr>
                                             <td>
                                             <RiCloseCircleFill color="#8CC5F1"  onClick={(e) => Delete_Update(v.item_id,JSON.parse(props.cart),1)} id="remove"/>
-                                            <img src={"/"+v.img_url} /> 
+                                            <img src={v.img_url} /> 
                                                
                                             </td>
                                         </tr>

@@ -12,6 +12,7 @@ import ReactPlayer from 'react-player';
 import {BrowserView, MobileView} from 'react-device-detect'
 import {addtocart} from '../actions'
 import {v4 as uuid4}  from 'uuid';
+import {Currency} from '../actions'
 
 
 
@@ -127,7 +128,7 @@ const Item = (props) => {
                             <>
                                     <Imagelayout>
                                         {props.model === "P" ?
-                                            <img   src={"/"+e.img_url} />  
+                                            <img   src={e.img_url} />  
                                             : <>
                                                     <BrowserView>
                                                         <ReactPlayer 
@@ -196,7 +197,7 @@ const Item = (props) => {
                                            <Title>
                                             <ul>   
                                             <li>
-                                                <span id="price">${e.price}</span>   
+                                                <span id="price">{ Currency() + e.price}</span>   
                                             </li>
 
                                             <li>
@@ -204,7 +205,7 @@ const Item = (props) => {
                                             </li>
 
                                             <li>
-                                                <span id="gender">Gender:  {e.categories}</span>
+                                                <span id="gender">Gender:  {e.gender}</span>
                                              </li>          
                                             </ul>
                                             </Title>
@@ -213,7 +214,7 @@ const Item = (props) => {
                                                 <ul>
                                                     <li>
                                                     Description:
-                                                    <br/> {e.categories}
+                                                    <br/> {e.description}
                                                     </li>
                                                 </ul>
                                             </Des>
@@ -313,6 +314,11 @@ const Item = (props) => {
             </Container>
          ): (<h1>Loading...</h1>)
          }
+
+         <Reviews>
+             <h5>‟ Reviews ˮ</h5>
+
+         </Reviews>
        </>
     )
 
@@ -937,6 +943,21 @@ z-index:8888888888888888;
 }
 `;
 
+
+
+
+const Reviews = styled.div`
+width: 100%;
+height: 300px;
+
+h5{
+margin-left:20px;
+font-weight:900;
+font-family: "Poppins", sans-serif;  
+padding-top:100px;
+}
+
+`;
 
 const mapStateToProps = (state) => {
     return {

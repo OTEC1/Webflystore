@@ -109,7 +109,7 @@ export function signOutGoogleApi(){
 export function  getListPostTop() {
     let list = [];
     return  async (dispatch) => {
-            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), where("section","==", "topview"));
+            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL));
             const response  =  await getDocs(data);
             if(response.empty)
                 return
@@ -130,7 +130,7 @@ export function  getListPostbottom() {
     let list = [];
 
     return  async (dispatch)  => {
-            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), where("section","==", "topview"));
+            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL));
             const response  =  await getDocs(data);
             if(response.empty)
                 return
@@ -188,6 +188,12 @@ export function Count(list) {
 
 export  function updatePostlikes(count){
     
+}
+
+
+let n=1;
+export function Currency(){
+    return  n === 1 ? "$" : "₦"
 }
 
 
