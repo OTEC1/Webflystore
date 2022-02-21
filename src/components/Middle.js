@@ -31,6 +31,7 @@ const   Middle =  (props) => {
 
 
 const Component = styled.div`
+
 #home{
 height: 50vh;
 width: 100%;
@@ -51,6 +52,9 @@ background: #f5f5f5;
 
 
 @media(max-width:768px){
+h5{
+bottom:0px;
+}
 #home{
 margin-top:45vh;    
 }    
@@ -62,6 +66,7 @@ margin-top:45vh;
 
 const MiddleBottom = styled.div`
 height: 200px;
+min-height:200px;
 width: 100%;
 background: #ffffff;
 padding-top:100px;
@@ -71,7 +76,7 @@ font-size:30pt;
 
 
 div{
-width: 50%;
+width: 60%;
 text-align:center;
 font-weight:900;
 font-family: "Poppins", sans-serif;

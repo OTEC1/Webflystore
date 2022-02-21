@@ -7,6 +7,7 @@ import axios from 'axios';
 import Item from './Item'
 import db from '../firebase';
 import { doc, getDoc } from "firebase/firestore/lite";
+import { getListPostTop } from '../actions';
 
 
 
@@ -19,8 +20,11 @@ const  {frame, option} = useParams();
 useEffect(() => {
 window.scrollTo(0,0);
 runnquery();
+props.LoadPost();
 
-},[])
+},[frame])
+
+
 
 
 
@@ -35,7 +39,7 @@ async function runnquery(){
      
 }
 
- return( datas ? <Item  dataPass={datas} id={frame} model={option} /> : "Loading...")
+ return( datas ? <Item  dataPass={datas} id={frame} model={option}   cachellist={props.post1}/> : "Loading...")
 
 }
 
@@ -44,12 +48,14 @@ async function runnquery(){
 const mapStateToProps = (state) => {
      return {
           user: state.userState.user,
+          post1: state.postState1.post1,
      }
 }
 
 
 const mapDispatchStatetoProps = (dispatch) => ({
-
+     LoadPost: (e) => dispatch(getListPostTop())
+     
 })
 
 export default connect(mapStateToProps,mapDispatchStatetoProps)(Itemselected)

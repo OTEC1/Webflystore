@@ -1,11 +1,12 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
-import { collection,getDocs, where, query} from 'firebase/firestore/lite';
+import { collection,getDocs, where, query, setDoc,doc} from 'firebase/firestore/lite';
 import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
 import axios from 'axios';
 import swal from 'sweetalert2'
 import db from '../firebase';
+import {v4 as uuid4}  from 'uuid';
 var CryptoJS = require("crypto-js");
 
 
@@ -169,6 +170,33 @@ export function  addtocart(cart){
                 dispatch(cartAdded(null));
             }
 }
+
+
+
+
+
+export function sendIncart(cart,cartSessionId){
+    
+    let id = uuid4();
+    for(let n=0; n<cart.length; n++){
+            setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
+                name: cart[n].name,
+                img_url: cart[n].img_url,
+                quantity: cart[n].quantity,
+                doc_id: cart[n].doc_id,
+                item_id: cart[n].item_id,
+                price: cart[n].price,
+                cartSessionId: id
+            });
+    }
+
+    setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
+            order_id:id,
+            status: false,
+            email:cartSessionId
+    });
+}
+
 
 
 

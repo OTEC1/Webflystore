@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {formation,SUM,RUNCHEK,addtocart} from '../actions'
+import {formation,SUM,RUNCHEK,addtocart,sendIncart} from '../actions'
 import {Ri4KLine, RiAddBoxLine, RiAddCircleFill, RiAddCircleLine, RiBankCard2Line,RiCloseCircleFill,RiCloseCircleLine, RiFileReduceLine, RiLineLine, RiPulseLine, RiTakeawayLine} from 'react-icons/ri'
-
+import {v4 as uuid4}  from 'uuid';
 
 const CartDiv = (props) => {
 
@@ -12,11 +12,8 @@ const CartDiv = (props) => {
     }
 
 
-
-
     let sessioncart = [];
     const Delete_Update = (id,list,index) => {
-       
     sessioncart = [];
 
     for(let y=0; y<list.length; y++)
@@ -41,9 +38,17 @@ const CartDiv = (props) => {
                 props.addtocart(); 
                 console.log(list) 
             }
+    }
 
-            
 
+
+    const checkout = (v) => {
+        let cartstate = [];
+        cartstate  = JSON.parse(localStorage.getItem("cart"));
+        sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+        localStorage.removeItem("cart");
+        props.addtocart(1);
+        props.openCart(v);
     }
 
 
@@ -116,7 +121,7 @@ const CartDiv = (props) => {
                             <SubTotal>
                                 <h5>Sub Total:  &nbsp; &nbsp;  ${SUM(JSON.parse(props.cart))}</h5>
                                 <h5>Tax:  {RUNCHEK()}</h5>
-                                <button id="checkout">Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
+                                <button id="checkout"  onClick={(e) => checkout(e)}>Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
                             </SubTotal>
             </Container>
             : ""

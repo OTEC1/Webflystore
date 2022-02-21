@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const ShareDialog =  (props) => {
 
-    const list  =  ["facebook.svg", "twitter.svg","tiktok.svg","whatsapp.svg","instragram.svg"];
+    const list  =  ["facebook.png", "twitter.svg","tiktok.svg","whatsapp.svg","instragram.svg"];
 
     const reset =  (e) => {
         props.sendRequestToModel(e);

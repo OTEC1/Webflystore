@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { RiMusicFill,RiAppsFill, RiBitCoinLine, RiSafe2Fill } from 'react-icons/ri';
+import {RiAppsFill, RiBitCoinLine, RiBook2Line, RiRunLine, RiSafe2Fill,RiSailboatLine,RiStore3Line } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -17,9 +17,9 @@ const About = (props) => {
                     <tr>
                         <td>
                           <h5 id='div1'>
-                            <RiMusicFill size={25}/>
-                             &nbsp;&nbsp; WebflyStore helps it viewer stay current on relevant entertainment 
-                            news We are also into music promotion offer
+                            <RiStore3Line size={25}/>
+                             &nbsp;&nbsp; WebflyStore is an online store that  sales 
+                              custom everyday wears for pet lovers, lawyer, sailors and family and  also body fitness outfit.
                           </h5>
                         </td>
                     </tr>
@@ -27,11 +27,10 @@ const About = (props) => {
                     <tr>
                         <td>
                             <h5 id='div2'>
-                            <RiAppsFill size={25}/>
+                            <RiBook2Line size={25}/>
                              &nbsp;&nbsp;
-                             WebflyStore business also extends to
-                                 mobile  app development
-                                 and website design
+                            Being a lawyer plays an important role in society 
+                            at webflystore we provide  "none implicating outfit" for off the court room  functions.
                             </h5>
                         </td>
                     </tr>
@@ -40,11 +39,25 @@ const About = (props) => {
                     <tr>
                         <td>
                             <h5 id='div3'>
-                                <RiBitCoinLine  size={25}/>
+                                <RiSailboatLine  size={25}/>
                                 &nbsp;&nbsp;
-                                    With a strong knowledge in Crypto currencies we offer deep insight 
-                                    into blockchain technology while providing our user with get started guide 
-                                    into Crypto investments
+                                The life of a martime is an adventrous one as it entail visiting different 
+                                bubble of life,  that why we make outfit for all bubble occasions.
+                                  
+                            </h5>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td>
+                            <h5 id='div2'>
+                            <RiRunLine size={25}/>
+                             &nbsp;&nbsp;
+                             Keeping fit is a good investment one can give to them self
+                             with the right outfit your workout routine will be more fun than workout 😎.
                             </h5>
                         </td>
                     </tr>
@@ -57,18 +70,18 @@ const About = (props) => {
                                 <RiSafe2Fill  size={25}/>
                                 &nbsp;&nbsp;
                                    
-                                The information provided by Webfly  on webfly.click
+                                The Product provided by Webflystore  on webflystore.web.app
                                 is for general informational purposes only. 
                                  All information on the Site is provided in good faith, 
                                  however we make no representation or warranty of any kind, express or implied, 
                                  regarding the accuracy, adequacy, validity, 
-                                reliability, availability or completeness of any information on the Site 
+                                reliability, availability or completeness of any Product on the Site 
                       
 
                                 Pls note Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of
                                 the use of the website  or reliance on any information provided on the site.
                                  Your use of the site   and your reliance on any information on the site is solely at your own risk.
-                                 Thanks from the team @ webfly.click 
+                                 Thanks from the team @ webflystore.web.app 
                                 
                             </h5>
                         </td>

@@ -66,7 +66,7 @@ const Footer = (props) => {
                 </tr>
 
                 <tr>
-                    <td  onClick={(e) => nav("about",700,700)}>
+                    <td  onClick={(e) => nav("about",800,800)}>
                      Disclaimer  &nbsp;<RiSafeFill/> 
                     </td>
                 </tr>

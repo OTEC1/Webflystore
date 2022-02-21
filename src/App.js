@@ -61,6 +61,17 @@ function App(props) {
                 <Route path="/about/:index1/:index2/"  element={<Footer/>}/>
               </Routes>
 
+
+
+
+              <Routes>
+              <Route  path="/store"  element={<Header/>}/>
+              </Routes>
+              
+
+              <Routes>
+              <Route  path="/store"  element={<Bottom/>}/>
+              </Routes>
           </Router>
 
     </div>

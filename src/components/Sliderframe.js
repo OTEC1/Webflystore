@@ -60,9 +60,9 @@ const   Sliderframe =  (props) => {
 const Component = styled.div`
 position: relative;
 height: 400px;
+min-height:400px;
 top: 0;
 width: 100%;
-background: #f5f5f5;
 padding: 0;
 margin-top: 60px;
 
@@ -95,10 +95,13 @@ color: rgba(0, 0, 0, 0.75);
 
 @media(max-width: 768px){
 height: 200px;
+min-height:200px;
+
 button{
 margin-top:45%;
 margin-left:35%;
 }
+
 }
 `;
 
@@ -107,6 +110,7 @@ margin-left:35%;
 const Container = styled.div`
 width: 100%;
 height: 100%;
+min-height:100%;
 cursor: pointer;
 img{
 object-fit:cover;

@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import ShareDialog from './ShareDialog';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import {Rating} from 'react-simple-star-rating';
 import swal from 'sweetalert2'
 import axios  from 'axios';
 import { RiAddLine, RiBankCard2Line, RiCommandLine, RiPencilLine, RiPulseLine, RiShoppingBag2Line, RiShoppingBasket2Line, RiShoppingCart2Line, RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
 import ReactPlayer from 'react-player';
 import {BrowserView, MobileView} from 'react-device-detect'
-import {addtocart} from '../actions'
+import {addtocart,getListPostTop} from '../actions'
 import {v4 as uuid4}  from 'uuid';
-import {Currency} from '../actions'
+import {Currency,sendIncart} from '../actions'
+import Card from './Card'
 
 
 
@@ -21,8 +22,8 @@ import {Currency} from '../actions'
 
 const Item = (props) => {
 
-
     const list  =  ["facebook.png", "twitter.svg","whatsapp.svg","instragram.svg"];
+    const [list2, setlist2] = useState([]);
     const [showModel, setShowModel] = useState("close");
     const [rate, setRating] = useState(0);
     const [respones, setResponse] = useState(''); 
@@ -74,8 +75,19 @@ const Item = (props) => {
         setRating(rate);
     }
 
+
+
+
     let lists = [];
     lists.push(props.dataPass);
+    useEffect(() => {
+       for(let n=0; n<props.cachellist.length; n++)
+           list2.push(props.cachellist[n])
+
+    },[props.cachellist]);
+
+
+
 
 
    
@@ -95,7 +107,7 @@ const Item = (props) => {
 
         sessioncart.push(v);
         localStorage.setItem("cart",JSON.stringify(sessioncart));
-        props.addtocart();
+        props.addtocart(0);
 
     }
 
@@ -104,9 +116,15 @@ const Item = (props) => {
 
 
     const checkout = () => {
-            localStorage.removeItem("cart");
-            props.addtocart();
-            console.log("E")
+        cartstate = [];
+        cartstate  = JSON.parse(localStorage.getItem("cart"));
+        sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+        localStorage.removeItem("cart");
+        props.addtocart(1);
+        setResponse("Order has been placed ! ")
+        snackbar();
+        
+           
     }
 
 
@@ -292,8 +310,8 @@ const Item = (props) => {
                                            </PayButton>  
                                        </BottomChain>
 
-                                        <MoreContent>
-                                                
+                                        <MoreContent>       
+                                               {list2.map((v,i) =><Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={150}  width={250}  img={true} />)}
                                         </MoreContent>  
 
                                     </Item_meta_data>
@@ -804,11 +822,23 @@ padding: 10px;
 
 
 
+
+
+
+
 const MoreContent = styled.div` 
 width: 99%;
-height: 33%;
-background-color: black;
+height: 35%;
 margin: 12px;
+display: flex;
+overflow-x:scroll;
+
+
+::-webkit-scrollbar {
+display: none;
+}
+
+
 
 @media(max-width:768px){
 margin:0px;
@@ -962,12 +992,14 @@ padding-top:100px;
 const mapStateToProps = (state) => {
     return {
         user: state.userState.user,
+        post1:state.postState1.post1,
+        
     }
 }
 
 
 const mapDispatchStatetoProps = (dispatch) => ({
-addtocart : (e) => { dispatch(addtocart(localStorage.getItem("cart")))}
+addtocart : (e) => {dispatch(addtocart(localStorage.getItem("cart")))}
 })
 
 export default connect(mapStateToProps,mapDispatchStatetoProps)(Item);
