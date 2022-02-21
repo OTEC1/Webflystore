@@ -78,12 +78,14 @@ const Item = (props) => {
 
 
 
-    let lists = [];
+    let lists = []; let list1 = []
     lists.push(props.dataPass);
     useEffect(() => {
-       for(let n=0; n<props.cachellist.length; n++)
-           list2.push(props.cachellist[n])
 
+       for(let n=0; n<props.cachellist.length; n++)
+           list1.push(props.cachellist[n])
+           setlist2(list1);
+           
     },[props.cachellist]);
 
 
@@ -311,7 +313,7 @@ const Item = (props) => {
                                        </BottomChain>
 
                                         <MoreContent>       
-                                               {list2.map((v,i) =><Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={150}  width={250}  img={true} />)}
+                                               {list2.map((v,i) => <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={150}  width={250}  img={true}  />)}
                                         </MoreContent>  
 
                                     </Item_meta_data>

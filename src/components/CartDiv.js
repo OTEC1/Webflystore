@@ -42,10 +42,14 @@ const CartDiv = (props) => {
 
 
 
-    const checkout = (v) => {
-        let cartstate = [];
-        cartstate  = JSON.parse(localStorage.getItem("cart"));
-        sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+    const checkout = (v,n) => {
+
+        if(n === 1){
+            let cartstate = [];
+            cartstate  = JSON.parse(localStorage.getItem("cart"));
+            sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+        }
+
         localStorage.removeItem("cart");
         props.addtocart(1);
         props.openCart(v);
@@ -68,6 +72,7 @@ const CartDiv = (props) => {
                     <label>
                        My  Cart
                     </label>
+                    <button id="close" onClick={(e) => checkout(e,2)}>Clear all</button>
                 </div>
 
                 <Items>
@@ -121,7 +126,7 @@ const CartDiv = (props) => {
                             <SubTotal>
                                 <h5>Sub Total:  &nbsp; &nbsp;  ${SUM(JSON.parse(props.cart))}</h5>
                                 <h5>Tax:  {RUNCHEK()}</h5>
-                                <button id="checkout"  onClick={(e) => checkout(e)}>Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
+                                <button id="checkout"  onClick={(e) => checkout(e,1)}>Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
                             </SubTotal>
             </Container>
             : ""

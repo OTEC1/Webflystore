@@ -178,23 +178,25 @@ export function  addtocart(cart){
 export function sendIncart(cart,cartSessionId){
     
     let id = uuid4();
-    for(let n=0; n<cart.length; n++){
-            setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
-                name: cart[n].name,
-                img_url: cart[n].img_url,
-                quantity: cart[n].quantity,
-                doc_id: cart[n].doc_id,
-                item_id: cart[n].item_id,
-                price: cart[n].price,
-                cartSessionId: id
-            });
-    }
+    if(cart.length > 0)
+        for(let n=0; n<cart.length; n++){
+                setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
+                    name: cart[n].name,
+                    img_url: cart[n].img_url,
+                    quantity: cart[n].quantity,
+                    doc_id: cart[n].doc_id,
+                    item_id: cart[n].item_id,
+                    price: cart[n].price,
+                    cartSessionId: id
+                });
+        }
 
-    setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
-            order_id:id,
-            status: false,
-            email:cartSessionId
-    });
+        if(cart.length > 0)
+            setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
+                    order_id:id,
+                    status: false,
+                    email:cartSessionId
+            });
 }
 
 

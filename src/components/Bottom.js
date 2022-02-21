@@ -22,7 +22,6 @@ const Bottom = (props) => {
    
     useEffect(() => {
     setlist(props.post2);
-    console.log(props.post2);
     },[props.post2])
   
 
