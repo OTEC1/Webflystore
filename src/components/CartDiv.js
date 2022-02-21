@@ -77,7 +77,7 @@ const CartDiv = (props) => {
 
                 <Items>
                     { props.cart  ? JSON.parse(props.cart).map((v,i) => 
-                         <ItemsInside>
+                         <ItemsInside key={i}>
                                     <table>
                                         <tr>
                                             <td>

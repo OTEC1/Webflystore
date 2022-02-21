@@ -32,7 +32,7 @@ const Bottom = (props) => {
               { list ? (
                 list.map((v,i) =>
                     v !== undefined && v !== null ?
-                        <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={350}  width={350}/>
+                        <Card  key={i} doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={350}  width={350}/>
                     : ""
                     )
               ):""}

@@ -17,6 +17,7 @@ const   Sliderframe =  (props) => {
     const [list , setlist] = useState([]);
     const [doc_id, setdoc_id] = useState('');
 
+
     useEffect(() => {
         setlist(props.post1);
     },[])
@@ -44,7 +45,7 @@ const   Sliderframe =  (props) => {
                             
                                 {list.map((v,i) => 
                                     v !== undefined ?
-                                        <Container onClick={(e) =>  navigates({frame: v.doc_id})}>
+                                        <Container  key={i} onClick={(e) =>  navigates({frame: v.doc_id})}>
                                             <img src={v.img_url}/>
                                         </Container>
                                       : ""
