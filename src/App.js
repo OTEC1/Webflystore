@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import ItemSelected from './components/ItemSelected';
 import BottomCon from './components/BottomCon';
 import About from './components/About'
+import Space from './components/Space';
 
 function App(props) {
 
@@ -67,11 +68,13 @@ function App(props) {
               <Routes>
               <Route  path="/store"  element={<Header/>}/>
               </Routes>
-              
-
+              <Routes>
+              <Route  path="/store"  element={<Space/>}/>
+              </Routes>
               <Routes>
               <Route  path="/store"  element={<Bottom/>}/>
               </Routes>
+              
           </Router>
 
     </div>

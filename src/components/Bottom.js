@@ -9,6 +9,7 @@ import Footer from './Footer';
 import { connect } from 'react-redux';
 import { RiShoppingBag3Line } from 'react-icons/ri';
 import Card from './Card';
+import Space from './Space';
 
 
 
@@ -28,7 +29,6 @@ const Bottom = (props) => {
    
     return(<div>
             <Container>
-
               { list ? (
                 list.map((v,i) =>
                     v !== undefined && v !== null ?
@@ -37,7 +37,6 @@ const Bottom = (props) => {
                     )
               ):""}
             </Container>
-
             <Footer/>
         </div>
     )
