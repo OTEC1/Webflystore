@@ -45,9 +45,9 @@ const   Sliderframe =  (props) => {
                             
                                 {list.map((v,i) => 
                                     v !== undefined ?
-                                        <Container  key={i} onClick={(e) =>  navigates({frame: v.doc_id})}>
+                                         <div key={i} onClick={(e) =>  navigates({frame: v.doc_id})}>
                                             <img src={v.img_url}/>
-                                        </Container>
+                                        </div>
                                       : ""
                                     )
                             }
@@ -59,15 +59,26 @@ const   Sliderframe =  (props) => {
 
 
 const Component = styled.div`
-position: relative;
-height: 400px;
-min-height:400px;
+height: 80vh;
+min-height:80vh;
 top: 0;
 width: 100%;
 padding: 0;
-margin-top: 60px;
+margin-top: 65px;
 
 
+div{
+width: 100%;
+height: 80vh;
+min-height:80vh;
+max-height:80vh;
+
+img{
+width: 100%;
+height: 120vh;
+object-fit:cover;
+}
+}
 
 
 button{
@@ -108,20 +119,6 @@ margin-left:35%;
 
 
 
-const Container = styled.div`
-width: 100%;
-height: 100%;
-min-height:100%;
-cursor: pointer;
-img{
-object-fit:cover;
-width: 100%;
-height: 100%;
-}
-h1{
-z-index:700;
-}
-`;
 
 
 const mapStateToProps = (state) => {

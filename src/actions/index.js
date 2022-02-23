@@ -1,5 +1,5 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
-import { collection,getDocs, where, query, setDoc,doc} from 'firebase/firestore/lite';
+import { collection,getDocs, where, query, setDoc,doc,orderBy} from 'firebase/firestore/lite';
 import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
@@ -110,7 +110,7 @@ export function signOutGoogleApi(){
 export function  getListPostTop() {
     let list = [];
     return  async (dispatch) => {
-            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL));
+            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL),orderBy("timestamp", "desc"));
             const response  =  await getDocs(data);
             if(response.empty)
                 return
@@ -131,7 +131,7 @@ export function  getListPostbottom() {
     let list = [];
 
     return  async (dispatch)  => {
-            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL));
+            const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), orderBy("timestamp", "desc"));
             const response  =  await getDocs(data);
             if(response.empty)
                 return

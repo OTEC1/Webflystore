@@ -32,6 +32,7 @@ const   Middle =  (props) => {
 
 const Component = styled.div`
 
+
 #home{
 height: 50vh;
 width: 100%;
