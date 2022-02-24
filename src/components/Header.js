@@ -148,8 +148,7 @@ const  Header = (props) => {
         <Container>
             <Content>
                    <Webdealit onClick={homeNav}>
-                    <img src="/images/shop.png"/>
-                     <h5>Webflystore</h5> 
+                     <h5>Kokocraft.ng</h5> 
                     </Webdealit>
 
 
@@ -246,7 +245,7 @@ const  Header = (props) => {
 
 
 const Container = styled.div`  
-background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
+background-image: linear-gradient(to top right,#BA5833, #EC9335);
 left: 0;
 padding: 0  24px;
 position:  fixed;
@@ -318,13 +317,7 @@ margin-top:0px;
 cursor: pointer;
 display: flex;
 
-img{
-width: 30px;
-height: 30px;
-padding-top: 4px;
-margin-right:10px;
-object-fit:contain;
-}
+
 
 @media(max-width:768px){
 font-size:15pt;

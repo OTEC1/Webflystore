@@ -18,8 +18,8 @@ const About = (props) => {
                         <td>
                           <h5 id='div1'>
                             <RiStore3Line size={25}/>
-                             &nbsp;&nbsp; WebflyStore is an online store that  sales 
-                              custom everyday wears for pet lovers, lawyer, sailors and family and  also body fitness outfit.
+                             &nbsp;&nbsp; Kokocraft is an online store that 
+                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
                           </h5>
                         </td>
                     </tr>
@@ -28,9 +28,8 @@ const About = (props) => {
                         <td>
                             <h5 id='div2'>
                             <RiBook2Line size={25}/>
-                             &nbsp;&nbsp;
-                            Being a lawyer plays an important role in society 
-                            at webflystore we provide  "none implicating outfit" for off the court room  functions.
+                            &nbsp;&nbsp; Kokocraft is an online store that 
+                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
                             </h5>
                         </td>
                     </tr>
@@ -40,10 +39,9 @@ const About = (props) => {
                         <td>
                             <h5 id='div3'>
                                 <RiSailboatLine  size={25}/>
-                                &nbsp;&nbsp;
-                                The life of a martime is an adventrous one as it entail visiting different 
-                                bubble of life,  that why we make outfit for all bubble occasions.
-                                  
+                                &nbsp;&nbsp; Kokocraft is an online store that 
+                               yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
+
                             </h5>
                         </td>
                     </tr>
@@ -55,9 +53,8 @@ const About = (props) => {
                         <td>
                             <h5 id='div2'>
                             <RiRunLine size={25}/>
-                             &nbsp;&nbsp;
-                             Keeping fit is a good investment one can give to them self
-                             with the right outfit your workout routine will be more fun than workout 😎.
+                             &nbsp;&nbsp; Kokocraft is an online store that 
+                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
                             </h5>
                         </td>
                     </tr>
@@ -101,7 +98,7 @@ const Container = styled.div`
 display: flex;
 height: 100vh;
 padding-bottom:700px;
-background: #8CC5F1;
+background: #F3AB44;
 
 div{
 border-radius:10px;

@@ -55,7 +55,7 @@ const Footer = (props) => {
 
                 <tr>
                     <td>
-                    webfly policy  &nbsp;<RiCopyrightLine/> 
+                    Kokocarft policy  &nbsp;<RiCopyrightLine/> 
                     </td>
                 </tr>
 
@@ -97,7 +97,7 @@ const Footers = styled.div`
 position: relative;
 height: auto;
 width: 100%;
-background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
+background-image: linear-gradient(to top right,#BA5833, #EC9335);
 bottom: 0;
 display: flex;
 flex-wrap:wrap;

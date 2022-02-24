@@ -78,8 +78,8 @@ width: 100%;
 height: 120vh;
 object-fit:cover;
 }
-}
 
+}
 
 button{
 position: absolute;
@@ -113,6 +113,21 @@ button{
 margin-top:45%;
 margin-left:35%;
 }
+
+
+div{
+height:70vh;
+min-height:70vh;
+max-height:70vh;
+
+img{
+width: 100%;
+height: 70vh;
+object-fit:cover;
+}
+
+}
+
 
 }
 `;
