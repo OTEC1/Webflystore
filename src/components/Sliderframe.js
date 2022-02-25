@@ -7,6 +7,7 @@ import {RiArrowLeftCircleLine,RiArrowRightCircleLine} from 'react-icons/ri'
 import {getListPostTop,updatePostlikes} from '../actions'; 
 import { useNavigate } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import {CloudinaryContext, Image} from 'cloudinary-react'
 
 
 const   Sliderframe =  (props) => {
@@ -46,11 +47,14 @@ const   Sliderframe =  (props) => {
                                 {list.map((v,i) => 
                                     v !== undefined ?
                                          <div key={i} onClick={(e) =>  navigates({frame: v.doc_id})}>
-                                            <img src={v.img_url}/>
+                                            <CloudinaryContext cloudName="otecdealings">
+                                                <Image publicId={"Kokocarft/"+v.img_url+".jpg"}></Image>
+                                            </CloudinaryContext>
                                         </div>
                                       : ""
                                     )
                             }
+                            
                     </Slider>
         </Component>
     )

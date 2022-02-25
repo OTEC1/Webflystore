@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {formation,SUM,RUNCHEK,addtocart,sendIncart} from '../actions'
+import {formation,SUM,RUNCHEK,addtocart,sendIncart, Notify} from '../actions'
 import {Ri4KLine, RiAddBoxLine, RiAddCircleFill, RiAddCircleLine, RiBankCard2Line,RiCloseCircleFill,RiCloseCircleLine, RiFileReduceLine, RiLineLine, RiPulseLine, RiTakeawayLine} from 'react-icons/ri'
 import {v4 as uuid4}  from 'uuid';
+import {CloudinaryContext, Image} from 'cloudinary-react'
 
 const CartDiv = (props) => {
 
@@ -44,15 +45,47 @@ const CartDiv = (props) => {
 
     const checkout = (v,n) => {
 
+        let none_signin_user = uuid4();
+
         if(n === 1){
             let cartstate = [];
             cartstate  = JSON.parse(localStorage.getItem("cart"));
-            sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+            console.log(cartstate);
+            for(let d=0; d<cartstate.length; d++){
+                    if(d === 0){
+                                let payload = {
+                                    User:{
+                                    to:process.env.REACT_APP_KEY
+                                },
+                                payload:{
+                                    id: cartstate[d].name,
+                                    email: props.user ? props.user.email :none_signin_user,
+                                    item: "New Order",
+                                    doc_id:cartstate[d].doc_id,
+                                    pic: cartstate[d].img_url
+                                },
+                                options: {
+                                    notification: {
+                                    badge: 1,
+                                    sound: "ping.aiff",
+                                    body: cartstate[d].img_url,
+                                    id: cartstate[d].doc_id,
+                                    email: props.user ? props.user.email :none_signin_user,
+                                    item: cartstate[d].name,
+                                    pic: cartstate[d].img_url
+                                    }
+                                }
+                            }
+                        Notify(payload);
+                    }
+             }
+            sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
         }
 
         localStorage.removeItem("cart");
         props.addtocart(1);
         props.openCart(v);
+
     }
 
 
@@ -82,8 +115,10 @@ const CartDiv = (props) => {
                                         <tr>
                                             <td>
                                             <RiCloseCircleFill color="#8CC5F1"  onClick={(e) => Delete_Update(v.item_id,JSON.parse(props.cart),1)} id="remove"/>
-                                            <img src={v.img_url} /> 
-                                               
+                                            
+                                            <CloudinaryContext cloudName="otecdealings">
+                                               <Image publicId={"Kokocarft/"+v.img_url+".jpg"}></Image>
+                                            </CloudinaryContext>
                                             </td>
                                         </tr>
                                         </table>

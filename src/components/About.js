@@ -18,8 +18,7 @@ const About = (props) => {
                         <td>
                           <h5 id='div1'>
                             <RiStore3Line size={25}/>
-                             &nbsp;&nbsp; Kokocraft is an online store that 
-                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
+                             &nbsp;&nbsp; Kokocraft is an online store that ...
                           </h5>
                         </td>
                     </tr>
@@ -28,8 +27,7 @@ const About = (props) => {
                         <td>
                             <h5 id='div2'>
                             <RiBook2Line size={25}/>
-                            &nbsp;&nbsp; Kokocraft is an online store that 
-                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
+                            &nbsp;&nbsp; Kokocraft is an online store that ...
                             </h5>
                         </td>
                     </tr>
@@ -39,8 +37,7 @@ const About = (props) => {
                         <td>
                             <h5 id='div3'>
                                 <RiSailboatLine  size={25}/>
-                                &nbsp;&nbsp; Kokocraft is an online store that 
-                               yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
+                                &nbsp;&nbsp; Kokocraft is an online store that...
 
                             </h5>
                         </td>
@@ -53,8 +50,8 @@ const About = (props) => {
                         <td>
                             <h5 id='div2'>
                             <RiRunLine size={25}/>
-                             &nbsp;&nbsp; Kokocraft is an online store that 
-                             yyuwe t32783 bm4i37 beiy7394 y739y4 uy34y23 euit7 e89y
+                             &nbsp;&nbsp; Kokocraft is an online store that... 
+                            
                             </h5>
                         </td>
                     </tr>

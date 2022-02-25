@@ -1,5 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect,useState} from "react"
 import styled from "styled-components"
+import {RouterReview} from   '../actions'
 import { connect } from "react-redux";
 import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,WhatsappIcon,TwitterIcon} from 'react-share'
 
@@ -7,59 +8,48 @@ import {FacebookShareButton,TwitterShareButton,WhatsappShareButton,FacebookIcon,
 const ShareDialog =  (props) => {
 
 
-    //instragram.svg
+    
+    const [editorText1, seteditorText1] = useState();
+
+
+
     const reset =  (e) => {
-        props.sendRequestToModel(e,props.section);
+        props.sendRequestToModel(e,2);
+        seteditorText1('');
     };
 
+
+    const PostData = (e) => {
+        RouterReview(props.id,editorText1,props.user ? props.user.email : "Anonymous");
+        props.sendRequestToModel(e,2);
+        seteditorText1('');
+    }
 
 
     return(
         <>
-        {props.showModel === "open" 
+        {props.showModelReview === "open" 
          &&(
             <Container>
+                
                 <Content>
-
                     <Header>
-                    <h2>Share this Post </h2>
+                    <h2>We love hearing  from you 💃💕</h2>
                     <button  onClick={(event) => reset(event)}>X</button>
                     </Header>
                         <SharedContent>
                                 <Editor>
-                              
+                                {props.user ? <img  src={props.user.photoURL}/> :    <img  src="/images/shop.png"/>  }
+                                <textarea placeholder="Pls drop your review here" onChange={(e) => seteditorText1(e.target.value)} value={editorText1}/>
 
-                                <FacebookShareButton
-                                    url={"https://us-central1-webpack-4414a.cloudfunctions.net/dynamicpostRender?i="+props.img_url+"&d="+props.doc_id+"&c="+props.caller}
-                                    quote={props.name}
-                                    onClick={(e) => reset(e)}>
-                                    <img  src="/images/facebook.png"/>
-                                </FacebookShareButton>
-
-                                 
-                               
-
-                                <WhatsappShareButton
-                                   url={"https://us-central1-webpack-4414a.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.img_url+"&d="+props.doc_id+"&c="+props.caller}
-                                   quote={props.name}  onClick={(e) => reset(e)}>
-                                    <img  src="/images/whatsapp.svg"/>
-                                </WhatsappShareButton>
-
-
-
-
-                                <TwitterShareButton
-                                        url={"https://us-central1-webpack-4414a.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_BASE_URL+props.img_url+"&d="+props.doc_id+"&c="+props.caller}
-                                        quote={props.name}   onClick={(e) => reset(e)}>
-                                        <img  src="/images/twitter.svg"/>
-                                </TwitterShareButton>
-
-                                
                                 </Editor>  
                             </SharedContent>
 
                             <ShareCreation>
                                 <Attach/>
+                                <PostButton  disabled={!editorText1  ? true : false}  onClick={(e) => PostData(e)}>
+                                  Post
+                               </PostButton>
                         </ShareCreation>
                 </Content>
                </Container>
@@ -177,7 +167,7 @@ const Attach = styled.div`
 
 const Editor = styled.div`
 
-padding:12px 24px;
+padding:10px;
 text-align: center;
 
 img{
@@ -185,6 +175,15 @@ width: 40px;
 height: 40px;
 margin:10px;
 border-radius: 50%;
+}
+
+textarea{
+width: 95%;
+height: 200px;
+font-weight:600;
+resize: none;
+padding:5px;
+
 }
 
 @media(max-width:768px){
@@ -197,6 +196,21 @@ margin:7px;
 
 
 
+
+
+const PostButton = styled.button`
+min-width:60px;
+border-radius: 20px;
+padding-left: 16px;
+padding-right: 16px;
+height: 35px;
+right:2px;
+background: ${(props) => (props.disabled ?  "rgba(0,0,0,0.8)" : "#0a66c2")};
+color: ${(props) => (props.disabled ? "rgba(1,1,1,0.2)": "white")};
+&:hover{
+background: ${(props) => (props.disabled ? "rgba(0,0,0,0.08)" : "#004162")};
+}
+`;
 
 
 const  mapStateToProps = (state)  => {

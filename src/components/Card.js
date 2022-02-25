@@ -3,7 +3,8 @@ import { RiShoppingBag3Line } from 'react-icons/ri';
 import { navigates } from "./Bottom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updatePostlikes, format} from "../actions";
+import { updatePostlikes, format,Currency} from "../actions";
+import {CloudinaryContext, Image} from 'cloudinary-react'
 
 
 
@@ -20,12 +21,17 @@ const Card = (props) => {
         updatePostlikes(frame);
         history('/model/'+frame+"/"+option)
       }
-
-      
  
     return(
         <CardShow onClick={(e)=>  navigates({frame: props.doc_id})}  height={props.height}  width={props.width}>
-        {props.img ? <img  id="items" src={props.img_url}/> : <img  id="home" src={props.img_url}/>}
+        {props.img ? 
+          
+          <CloudinaryContext cloudName="otecdealings">
+             <Image id="items" publicId={"Kokocarft/"+props.img_url+".jpg"}></Image>
+          </CloudinaryContext>
+        :    <CloudinaryContext cloudName="otecdealings">
+               <Image id="home" publicId={"Kokocarft/"+props.img_url+".jpg"}></Image>
+         </CloudinaryContext>}
 
         {!props.img  ?
          <>
@@ -34,7 +40,7 @@ const Card = (props) => {
             </div>
 
             <div id='writeUp'>
-                Price:$ {props.price}
+                Price: {Currency() + props.price}
             </div>
 
             <div id='end'>

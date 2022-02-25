@@ -157,16 +157,16 @@ const  Header = (props) => {
                     </NavBar>
          
 
-                <Search>
-                    <div>
-                        <input placeholder='Search for products' value={query}  onChange={(e) => setQuery(e.target.value)} />
-                    </div>
-                    <SearchIcon onClick={(e) => runquery()}>
-                        <RiSearch2Line
-                            size={15}
-                            color='#000'/>
-                    </SearchIcon>
-                </Search>
+                    <Search>
+                        <div>
+                            <input placeholder='Search for products' value={query}  onChange={(e) => setQuery(e.target.value)} />
+                        </div>
+                        <SearchIcon onClick={(e) => runquery()}>
+                            <RiSearch2Line
+                                size={15}
+                                color='#000'/>
+                        </SearchIcon>
+                    </Search>
 
 
 
@@ -502,7 +502,7 @@ justify-content: center;
 align-items: center;
 position: fixed;
 bottom: 0;
-background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
+background-image: linear-gradient(to top right,#BA5833, #EC9335);
 }
 `;
 

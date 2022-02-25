@@ -1,6 +1,6 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import { collection,getDocs, where, query, setDoc,doc,orderBy} from 'firebase/firestore/lite';
-import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER} from './actionType';
+import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER, REVIEWS} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
 import axios from 'axios';
@@ -58,13 +58,18 @@ export const cartAdded = (payload) => ({
 
 
 
+export const reviewAdded = (payload) => ({
+    type: REVIEWS,
+    reviews: payload,
+})
+
+
 
 
 
 
 export function signInfacebookApi(m){
     return (dispatch) => {
-            console.log(m.profile)
             dispatch(setUser(m.profile))
         }
 };
@@ -80,7 +85,6 @@ export function signInAPIGoogle(){
     return(dispatch) => {
         signInWithPopup(auth,provider)
         .then((paid) => {
-            console.log(paid.user)
             dispatch(setUser(paid.user))
         })
         .catch((err) => alert(err.message))
@@ -127,9 +131,7 @@ export function  getListPostTop() {
 
 
 export function  getListPostbottom() {
-
     let list = [];
-
     return  async (dispatch)  => {
             const   data = query(collection(db,process.env.REACT_APP_HOME_CALL), orderBy("timestamp", "desc"));
             const response  =  await getDocs(data);
@@ -143,6 +145,29 @@ export function  getListPostbottom() {
             
     }
 }
+
+
+
+
+export function  getListReviews(doc_id) {
+    let list = [];
+    return  async (dispatch)  => {
+            const   data = query(collection(db, process.env.REACT_APP_HOME_CALL+"/"+doc_id+"/"+process.env.REACT_APP_REVIEW), orderBy("timestamp", "desc"));
+            const response  =  await getDocs(data);
+            if(response.empty)
+                dispatch(reviewAdded([]))
+            else
+                dispatch(reviewAdded([]))
+
+            response.forEach(doc => {
+                list.push(doc.data());
+                dispatch(reviewAdded(list))
+            })
+          
+            
+    }
+}
+
 
 
 
@@ -190,23 +215,49 @@ export function sendIncart(cart,cartSessionId){
                     cartSessionId: id
                 });
         }
-
+        
         if(cart.length > 0)
             setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
                     order_id:id,
                     status: false,
-                    email:cartSessionId
+                    email:cartSessionId,
+                    timestamp: new Date().getTime(),
             });
 }
 
 
 
 
+export function RouterReview(doc_id,review,user) {
 
+    setDoc(doc(collection(db, process.env.REACT_APP_HOME_CALL+"/"+doc_id+"/"+process.env.REACT_APP_REVIEW),uuid4()),{
+        doc_id: doc_id,
+        review: review,
+        user: user,
+        timestamp: new Date().getTime(),
+});
+}
+
+
+
+export function Notify(payload){
+    axios.post(process.env.REACT_APP_NOTIFY,payload)
+        .then(res => {
+            console.log(res.data.message);
+        }).catch(err => {
+            console.log(err)
+        });
+    
+}
 
 
 export function  formation(datas){
-    return  datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
+    if(datas !== undefined && datas !== null)
+      datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
+    else
+        datas = datas;
+        
+      return datas;
 }
     
 
@@ -221,7 +272,7 @@ export  function updatePostlikes(count){
 }
 
 
-let n=1;
+let n=2;
 export function Currency(){
     return  n === 1 ? "$" : "₦"
 }

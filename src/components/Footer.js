@@ -1,5 +1,5 @@
 import styled  from "styled-components";
-import { RiAccountCircleLine, RiCopyrightLine,RiSafeFill, RiFacebookBoxLine, RiInstagramLine, RiMessage2Line, RiTeamLine, RiTwitterLine, } from 'react-icons/ri';
+import { RiAccountCircleLine, RiCopyrightLine,RiSafeFill, RiFacebookBoxLine, RiInstagramLine, RiMessage2Line, RiTeamLine, RiTwitterLine, RiWhatsappLine, } from 'react-icons/ri';
 import {useNavigate, useNavigator} from  'react-router-dom';
 
 const Footer = (props) => {
@@ -31,14 +31,14 @@ const Footer = (props) => {
 
                 <tr>
                     <td>
-                      <a href="https://www.instagram.com/webfly_/?hl=en">Follow us on </a>  &nbsp;<RiInstagramLine/> 
+                      <a href="https://www.instagram.com/invites/contact/?i=o8y51paupmy0&utm_content=3qn7nqj">Follow us on </a>  &nbsp;<RiInstagramLine/> 
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>
-                      Connect  on &nbsp; <RiTwitterLine/> 
+                      <a href="https://wa.me/message/3WPQF6FPTMA5O1">Connect with us  </a>   &nbsp; <RiWhatsappLine/> 
                     </td>
                 </tr>
 

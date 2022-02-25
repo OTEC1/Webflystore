@@ -10,10 +10,13 @@ import axios  from 'axios';
 import { RiAddLine, RiBankCard2Line, RiCommandLine, RiPencilLine, RiPulseLine, RiShoppingBag2Line, RiShoppingBasket2Line, RiShoppingCart2Line, RiThumbUpFill, RiThumbUpLine } from 'react-icons/ri';
 import ReactPlayer from 'react-player';
 import {BrowserView, MobileView} from 'react-device-detect'
-import {addtocart,getListPostTop} from '../actions'
+import {addtocart,getListPostTop, formation,getListReviews} from '../actions'
 import {v4 as uuid4}  from 'uuid';
-import {Currency,sendIncart} from '../actions'
+import {Currency,sendIncart,Notify} from '../actions'
 import Card from './Card'
+import {CloudinaryContext, Image} from 'cloudinary-react'
+import ReviewDialog from './ReviewDialog';
+import PopReviews from './PopReviews'
 
 
 
@@ -25,11 +28,14 @@ const Item = (props) => {
     const list  =  ["facebook.png", "twitter.svg","whatsapp.svg","instragram.svg"];
     const [list2, setlist2] = useState([]);
     const [showModel, setShowModel] = useState("close");
+    const [showModelReview, setshowModelReview] = useState('close');
+    const [section, setsection] = useState(0);
     const [rate, setRating] = useState(0);
     const [respones, setResponse] = useState(''); 
     const [quantity, setQuantity] = useState(1);
     const [thumbs, setThumbs] = useState(true);
     const [sectionToOpen, setSectionToOpen] = useState("none");
+ 
     
 
 
@@ -50,9 +56,11 @@ const Item = (props) => {
             
     }
 
-    const  sendRequestToModel = (event) => {
+    const  sendRequestToModel = (event,n) => {
         event.preventDefault();
-     
+        setsection(n);
+
+        if(n === 1){
                 switch(showModel){
                     case "open":
                         setShowModel("close");
@@ -68,6 +76,24 @@ const Item = (props) => {
 
                         console.log("OK ! ")
                 };
+            }else{
+                switch(showModelReview){
+                    case "open":
+                        setshowModelReview("close");
+                        break;
+
+                    case "close":
+                        setshowModelReview("open");
+                    break;
+
+                    default:
+                        setshowModelReview("close");
+                        break;
+
+                        console.log("OK ! ")
+                };
+            }
+
         }
 
 
@@ -78,21 +104,20 @@ const Item = (props) => {
 
 
 
-    let lists = []; let list1 = []
+    let lists = []; let list1 = [];let list4 = [];
     lists.push(props.dataPass);
-    useEffect(() => {
+ 
 
-       for(let n=0; n<props.cachellist.length; n++)
-           list1.push(props.cachellist[n])
-           setlist2(list1);
-           
+
+    useEffect(() => {    
+        if( props.cachellist !== undefined && props.cachellist !== null)
+            for(let n=0; n<props.cachellist.length; n++)
+                    list1.push(props.cachellist[n])
+                setlist2(list1);   
+                props.addtocart(2,props.id)
     },[props.cachellist]);
 
-
-
-
-
-   
+    
    
     let sessioncart = []; let cartstate = [];
     const addItemtosessioncart = (v) => {
@@ -109,7 +134,7 @@ const Item = (props) => {
 
         sessioncart.push(v);
         localStorage.setItem("cart",JSON.stringify(sessioncart));
-        props.addtocart(0);
+        props.addtocart(0,"");
 
     }
 
@@ -117,15 +142,45 @@ const Item = (props) => {
 
 
 
-    const checkout = () => {
-        cartstate = [];
+    const checkout = (e) => {
+    
+        let none_signin_user = uuid4();
+        let cartstate = [];
         cartstate  = JSON.parse(localStorage.getItem("cart"));
-        sendIncart(cartstate,props.user ? props.user.email : uuid4()); 
+
+            for(let d=0; d<cartstate.length; d++){
+                    if(d === 0){
+                                let payload = {
+                                    User:{
+                                    to:process.env.REACT_APP_KEY
+                                },
+                                payload:{
+                                    id: cartstate[d].name,
+                                    email: props.user ? props.user.email :none_signin_user,
+                                    item: "New Order",
+                                    doc_id:cartstate[d].doc_id,
+                                    pic: cartstate[d].img_url
+                                },
+                                options: {
+                                    notification: {
+                                    badge: 1,
+                                    sound: "ping.aiff",
+                                    body: cartstate[d].img_url,
+                                    id: cartstate[d].doc_id,
+                                    email: props.user ? props.user.email :none_signin_user,
+                                    item: cartstate[d].name,
+                                    pic: cartstate[d].img_url
+                                    }
+                                }
+                            }
+                        Notify(payload);
+                    }
+             }
+        sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
         localStorage.removeItem("cart");
-        props.addtocart(1);
+        props.addtocart(1,"");
         setResponse("Order has been placed ! ")
         snackbar();
-        
            
     }
 
@@ -148,7 +203,10 @@ const Item = (props) => {
                             <>
                                     <Imagelayout>
                                         {props.model === "P" ?
-                                            <img   src={e.img_url} />  
+                                        
+                                            <CloudinaryContext cloudName="otecdealings">
+                                               <Image publicId={"Kokocarft/"+e.img_url+".jpg"}></Image>
+                                            </CloudinaryContext>
                                             : <>
                                                     <BrowserView>
                                                         <ReactPlayer 
@@ -179,7 +237,7 @@ const Item = (props) => {
                                                 
                                             </User>
                                             <PostSocial>
-                                                <Share onClick={sendRequestToModel}>
+                                                <Share onClick={(e) => sendRequestToModel(e,1)}>
                                                     Share
                                                 </Share>
                                             </PostSocial>
@@ -221,7 +279,7 @@ const Item = (props) => {
                                             </li>
 
                                             <li>
-                                                <span id="tag">Tag: {e.name}</span>
+                                                <span id="tag">Tag: {formation(e.name)}</span>
                                             </li>
 
                                             <li>
@@ -274,7 +332,7 @@ const Item = (props) => {
                                                             />
                                                     </div>
 
-                                                    <div id="Popup">
+                                                    <div id="Popup"  onClick={(e) => sendRequestToModel(e,2)}>
                                                        <button>Drop a Review +</button>
                                                     </div>
                                                        
@@ -308,7 +366,7 @@ const Item = (props) => {
 
                                        <BottomChain>
                                            <PayButton>
-                                               <button  onClick={(e) => checkout()}> checkout <RiBankCard2Line id="card" size="20"  color="#000"/> </button>
+                                               <button  onClick={(e) => checkout(e)}> checkout <RiBankCard2Line id="card" size="20"  color="#000"/> </button>
                                            </PayButton>  
                                        </BottomChain>
 
@@ -318,7 +376,12 @@ const Item = (props) => {
 
                                     </Item_meta_data>
                                 </Detailslayout>
-                               </>
+
+                                {e.name ?
+                                <ShareDialog showModel={showModel}   sendRequestToModel={sendRequestToModel}  name={e.name}  img_url={e.img_url}  doc_id={e.doc_id}  caller={props.model}  section={section}/>
+                                 : ""}
+                                 
+                                </>
                              ):(<div id="load">
                                 <Loader
                                     type="Oval"
@@ -329,15 +392,15 @@ const Item = (props) => {
                           </div>)}
                      </>
                      ))}
-                 <ShareDialog showModel={showModel} sectionToOpen={sectionToOpen}   sendRequestToModel={sendRequestToModel}/>
-                 <div id="snackbar">{respones}</div>
+                     <ReviewDialog showModelReview={showModelReview}   sendRequestToModel={sendRequestToModel} section={section} id={props.id} />
+                   <div id="snackbar">{respones}</div>
             </Container>
          ): (<h1>Loading...</h1>)
          }
 
          <Reviews>
              <h5>‟ Reviews ˮ</h5>
-
+               { props.reviews !== undefined && props.reviews  !== null && props.reviews.length !== 0 ? <PopReviews data={props.reviews}/> : "" }
          </Reviews>
        </>
     )
@@ -980,7 +1043,7 @@ z-index:8888888888888888;
 
 const Reviews = styled.div`
 width: 100%;
-height: 300px;
+height: 500px;
 
 h5{
 margin-left:20px;
@@ -995,13 +1058,14 @@ const mapStateToProps = (state) => {
     return {
         user: state.userState.user,
         post1:state.postState1.post1,
+        reviews: state.reviewState.reviews,
         
     }
 }
 
 
 const mapDispatchStatetoProps = (dispatch) => ({
-addtocart : (e) => {dispatch(addtocart(localStorage.getItem("cart")))}
+addtocart : (e,doc_id) => { e === 2 ? dispatch(getListReviews(doc_id)) : dispatch(addtocart(localStorage.getItem("cart")))}
 })
 
 export default connect(mapStateToProps,mapDispatchStatetoProps)(Item);
