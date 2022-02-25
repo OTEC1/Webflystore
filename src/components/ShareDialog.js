@@ -30,7 +30,7 @@ const ShareDialog =  (props) => {
                               
 
                                 <FacebookShareButton
-                                    url={"https://us-central1-webpack-4414a.cloudfunctions.net/dynamicpostRender?i="+props.img_url+"&d="+props.doc_id+"&c="+props.caller}
+                                    url={"https://us-central1-webpack-4414a.cloudfunctions.net/dynamicpostRender?i="+process.env.REACT_APP_S3+props.img_url+"&d="+props.doc_id+"&c="+props.caller}
                                     quote={props.name}
                                     onClick={(e) => reset(e)}>
                                     <img  src="/images/facebook.png"/>
