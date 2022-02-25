@@ -5,17 +5,30 @@ import Header from './components/Header'
 import Middle from './components/Middle'
 import Bottom from './components/Bottom'
 import Footer from './components/Footer'
-import './App.css';
 import { connect } from 'react-redux';
 import ItemSelected from './components/ItemSelected';
 import BottomCon from './components/BottomCon';
 import About from './components/About'
 import Space from './components/Space';
-
+import { getDoc,doc} from 'firebase/firestore/lite';
+import './App.css';
+import db from './firebase';
+ 
 function App(props) {
 
-  useEffect(() => {
+  let list = [];
+  useEffect( async () => {
     props.getUserAuth();
+    
+    const docRef = doc(db, process.env.REACT_APP_ADMIN, process.env.REACT_APP_DOC);
+    const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        list.push(docSnap.data());
+          list.map((v,i) => sessionStorage.setItem("token",v.token))
+         
+      }else 
+          console.log("Not found !");
+    
   },[])
   
   return (
