@@ -1,12 +1,17 @@
+import React, {useState} from 'react'
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {formation,SUM,RUNCHEK,addtocart,sendIncart, Notify} from '../actions'
+import {formation,SUM,RUNCHEK,addtocart,sendIncart, Notify, Currency} from '../actions'
 import {Ri4KLine, RiAddBoxLine, RiAddCircleFill, RiAddCircleLine, RiBankCard2Line,RiCloseCircleFill,RiCloseCircleLine, RiFileReduceLine, RiLineLine, RiPulseLine, RiTakeawayLine} from 'react-icons/ri'
 import {v4 as uuid4}  from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import {CloudinaryContext, Image} from 'cloudinary-react'
 
 const CartDiv = (props) => {
 
+    const [respones, setResponse] = useState(''); 
+    const [timer, setTimeer] = useState(false);
+    let history = useNavigate();
 
     const closeCartView = (v) => {
         props.openCart(v);
@@ -44,52 +49,62 @@ const CartDiv = (props) => {
 
 
     const checkout = (v,n) => {
+        history("/shipping")
 
-        let none_signin_user = uuid4();
+        // let none_signin_user = uuid4();
 
-        if(n === 1){
-            let cartstate = [];
-            cartstate  = JSON.parse(localStorage.getItem("cart"));
-            console.log(cartstate);
-            for(let d=0; d<cartstate.length; d++){
-                    if(d === 0){
-                                let payload = {
-                                    User:{
-                                    to: sessionStorage.getItem("token"),
-                                },
-                                payload:{
-                                    id: cartstate[d].name,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: "New Order",
-                                    doc_id:cartstate[d].doc_id,
-                                    pic: cartstate[d].img_url
-                                },
-                                options: {
-                                    notification: {
-                                    badge: 1,
-                                    sound: "ping.aiff",
-                                    body: cartstate[d].img_url,
-                                    id: cartstate[d].doc_id,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: cartstate[d].name,
-                                    pic: cartstate[d].img_url
-                                    }
-                                }
-                            }
-                        Notify(payload);
-                    }
-             }
-            sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
-        }
+        // if(n === 1){
+        //     let cartstate = [];
+        //     cartstate  = JSON.parse(localStorage.getItem("cart"));
+        //     console.log(cartstate);
+        //     for(let d=0; d<cartstate.length; d++){
+        //             if(d === 0){
+        //                         let payload = {
+        //                             User:{
+        //                             to: sessionStorage.getItem("token"),
+        //                         },
+        //                         payload:{
+        //                             id: cartstate[d].name,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: "New Order",
+        //                             doc_id:cartstate[d].doc_id,
+        //                             pic: cartstate[d].img_url
+        //                         },
+        //                         options: {
+        //                             notification: {
+        //                             badge: 1,
+        //                             sound: "ping.aiff",
+        //                             body: cartstate[d].img_url,
+        //                             id: cartstate[d].doc_id,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: cartstate[d].name,
+        //                             pic: cartstate[d].img_url
+        //                             }
+        //                         }
+        //                     }
+        //                 Notify(payload);
+        //             }
+        //      }
+        //     sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
+        // }
 
-        localStorage.removeItem("cart");
-        props.addtocart(1);
-        props.openCart(v);
+        // localStorage.removeItem("cart");
+        // props.addtocart(1);
+        // props.openCart(v);
+        // setResponse("Order has been placed !");
+        // snackbar( timer ? 5000 : 3000);
 
     }
 
 
 
+    
+    function snackbar(n) {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeer(true);
+        setTimeout(() => { x.className = x.className.replace("show", ""); setTimeer(false)}, n);
+    }
 
 
 
@@ -149,7 +164,7 @@ const CartDiv = (props) => {
 
                                         <tr>
                                             <td>
-                                                <label>Total: ${v.price}</label>
+                                                <label>Total: {Currency() + v.price}</label>
                                             </td>
                                         </tr>
 
@@ -159,10 +174,11 @@ const CartDiv = (props) => {
                            </Items>
 
                             <SubTotal>
-                                <h5>Sub Total:  &nbsp; &nbsp;  ${SUM(JSON.parse(props.cart))}</h5>
+                                <h5>Sub Total:  &nbsp; &nbsp;  {Currency()+ SUM(JSON.parse(props.cart))}</h5>
                                 <h5>Tax:  {RUNCHEK()}</h5>
-                                <button id="checkout"  onClick={(e) => checkout(e,1)}>Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
+                                <button id="checkout"  onClick={(e) => checkout(e,1)}>Proceed to Checkout  &nbsp;&nbsp; <RiBankCard2Line id="card" size="20"  color="#000"/></button>
                             </SubTotal>
+                            <div id="snackbar">{respones}</div>
             </Container>
             : ""
          }
@@ -197,6 +213,69 @@ font-family: "Poppins", sans-serif;
 flex-grow:1;
 text-align:center;
 }
+
+
+
+
+#snackbar {
+  visibility: hidden; 
+  min-width: 200px;
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 9999; 
+  border-radius:10px;
+  left: 50%;  
+  margin-top: 50px;
+}
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
+
+
+
+
+
+@media(max-width:1200px){
+width: 100%;
+}
+
+@media(max-width:768px){
+width: 100%;
+
+#snackbar {
+margin-left: -120px; 
+}
+
+}
+
+
 
 }
 

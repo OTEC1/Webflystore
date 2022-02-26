@@ -5,6 +5,7 @@ import postReducer1 from './postReducer1'
 import postReducer2 from './postReducer2'
 import cartReducer from './cartReducer'
 import reviewReducer from './reviewReducer'
+import locationReduce from "./locationReduce";
 
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     postState2:postReducer2,
     cartState: cartReducer,
     reviewState: reviewReducer,
+    locationstate: locationReduce,
    
 });
 

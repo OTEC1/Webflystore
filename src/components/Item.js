@@ -17,6 +17,7 @@ import Card from './Card'
 import {CloudinaryContext, Image} from 'cloudinary-react'
 import ReviewDialog from './ReviewDialog';
 import PopReviews from './PopReviews'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -35,7 +36,8 @@ const Item = (props) => {
     const [quantity, setQuantity] = useState(1);
     const [thumbs, setThumbs] = useState(true);
     const [sectionToOpen, setSectionToOpen] = useState("none");
- 
+    const [timer, setTimeer] = useState(false);
+    let history = useNavigate();
     
 
 
@@ -122,7 +124,8 @@ const Item = (props) => {
     let sessioncart = []; let cartstate = [];
     const addItemtosessioncart = (v) => {
        setResponse("Added to cart")
-       snackbar(); sessioncart = []
+       snackbar(timer ? 5000 : 3000); 
+       sessioncart = []
        cartstate  = JSON.parse(localStorage.getItem("cart"));
 
        if(cartstate)
@@ -143,56 +146,64 @@ const Item = (props) => {
 
 
     const checkout = (e) => {
+        history("/shipping");
     
-        let none_signin_user = uuid4();
-        let cartstate = [];
-        cartstate  = JSON.parse(localStorage.getItem("cart"));
+        // let none_signin_user = uuid4();
+        // let cartstate = [];
+        // cartstate  = JSON.parse(localStorage.getItem("cart"));
 
-            for(let d=0; d<cartstate.length; d++){
-                    if(d === 0){
-                                let payload = {
-                                    User:{
-                                    to: sessionStorage.getItem("token")
-                                },
-                                payload:{
-                                    id: cartstate[d].name,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: "New Order",
-                                    doc_id:cartstate[d].doc_id,
-                                    pic: cartstate[d].img_url
-                                },
-                                options: {
-                                    notification: {
-                                    badge: 1,
-                                    sound: "ping.aiff",
-                                    body: cartstate[d].img_url,
-                                    id: cartstate[d].doc_id,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: cartstate[d].name,
-                                    pic: cartstate[d].img_url
-                                    }
-                                }
-                            }
-                        Notify(payload);
-                    }
-             }
-        sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
-        localStorage.removeItem("cart");
-        props.addtocart(1,"");
-        setResponse("Order has been placed ! ")
-        snackbar();
+        // if(cartstate){
+        //     for(let d=0; d<cartstate.length; d++){
+        //             if(d === 0){
+        //                         let payload = {
+        //                             User:{
+        //                             to: sessionStorage.getItem("token")
+        //                         },
+        //                         payload:{
+        //                             id: cartstate[d].name,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: "New Order",
+        //                             doc_id:cartstate[d].doc_id,
+        //                             pic: cartstate[d].img_url
+        //                         },
+        //                         options: {
+        //                             notification: {
+        //                             badge: 1,
+        //                             sound: "ping.aiff",
+        //                             body: cartstate[d].img_url,
+        //                             id: cartstate[d].doc_id,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: cartstate[d].name,
+        //                             pic: cartstate[d].img_url
+        //                             }
+        //                         }
+        //                     }
+        //                 Notify(payload);
+        //             }
+        //      }
+        //     sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
+        //     localStorage.removeItem("cart");
+        //     props.addtocart(1,"");
+        //     setResponse("Order has been placed !");
+            
+        //     snackbar( timer ? 5000 : 3000);
+            
+        //     }
+       
            
     }
 
 
 
-    function snackbar() {
+    function snackbar(n) {
         var x = document.getElementById("snackbar");
         x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-      }
+        setTimeer(true);
+        setTimeout(() => { x.className = x.className.replace("show", ""); setTimeer(false)}, n);
+    }
 
    
+
     return(
         <>
           {lists.length > 0  ? (
@@ -366,7 +377,7 @@ const Item = (props) => {
 
                                        <BottomChain>
                                            <PayButton>
-                                               <button  onClick={(e) => checkout(e)}> checkout <RiBankCard2Line id="card" size="20"  color="#000"/> </button>
+                                               <button  onClick={(e) => checkout(e)}> Proceed to Checkout  <RiBankCard2Line id="card" size="20"  color="#000"/> </button>
                                            </PayButton>  
                                        </BottomChain>
 
@@ -394,7 +405,7 @@ const Item = (props) => {
                      ))}
                      <ReviewDialog showModelReview={showModelReview}   sendRequestToModel={sendRequestToModel} section={section} id={props.id} />
                    <div id="snackbar">{respones}</div>
-            </Container>
+                  </Container>
          ): (<h1>Loading...</h1>)
          }
 
@@ -518,9 +529,9 @@ height: 70%;
 
 
 img{
-height: 300px;
-min-height:300px;
-max-height:300px;
+height: 400px;
+min-height:400px;
+max-height:400px;
 }
 }
 

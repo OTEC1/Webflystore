@@ -1,6 +1,6 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
 import { collection,getDocs, where, query, setDoc,doc,orderBy} from 'firebase/firestore/lite';
-import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER, REVIEWS} from './actionType';
+import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER, REVIEWS,Locations} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
 import axios from 'axios';
@@ -62,6 +62,13 @@ export const reviewAdded = (payload) => ({
     type: REVIEWS,
     reviews: payload,
 })
+
+
+export const getloaction = (payload) => ({
+    type: Locations,
+    locations: payload,
+})
+
 
 
 
@@ -172,6 +179,29 @@ export function  getListReviews(doc_id) {
 
 
 
+
+
+
+
+
+export function LoadLocations(){
+    let list =  [];
+    return  async (dispatch)  => {
+        const data = query(collection(db, process.env.REACT_APP_SECTOR));
+        const response  =  await getDocs(data);
+            if(response.empty)
+                return;
+            response.forEach(doc => {
+                list.push(doc.data());   
+                dispatch(getloaction(list))  
+            })
+    }
+      
+}
+
+
+
+
 export function getUserAuth(data){
     return (dispatch) => {
             auth.onAuthStateChanged(async (use) => {
@@ -229,7 +259,6 @@ export function sendIncart(cart,cartSessionId){
 
 
 export function RouterReview(doc_id,review,user) {
-
     setDoc(doc(collection(db, process.env.REACT_APP_HOME_CALL+"/"+doc_id+"/"+process.env.REACT_APP_REVIEW),uuid4()),{
         doc_id: doc_id,
         review: review,
@@ -293,6 +322,19 @@ export function SUM(cart_list){
         }
     }
     return sum;
+}
+
+
+
+export function SUM2(cart_list,n){
+    let track=0,sum=0;
+    if(cart_list){
+        for(let n=0; n<cart_list.length; n++){
+                track = cart_list[n].quantity *  cart_list[n].price;
+                sum = sum + track;
+        }
+    }
+    return sum+n;
 }
 
 

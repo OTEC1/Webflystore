@@ -13,13 +13,14 @@ import Space from './components/Space';
 import { getDoc,doc} from 'firebase/firestore/lite';
 import './App.css';
 import db from './firebase';
+import Shipping from './components/Shipping';
+import ShippingCost from './components/ShippingCost';
  
 function App(props) {
 
   let list = [];
   useEffect( async () => {
     props.getUserAuth();
-    
     const docRef = doc(db, process.env.REACT_APP_ADMIN, process.env.REACT_APP_DOC);
     const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -79,14 +80,40 @@ function App(props) {
 
 
               <Routes>
-              <Route  path="/store"  element={<Header/>}/>
+                <Route  path="/store"  element={<Header/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/store"  element={<Space/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/store"  element={<Bottom/>}/>
               </Routes>
+              
+
+
+
               <Routes>
-              <Route  path="/store"  element={<Space/>}/>
+                <Route  path="/shipping"  element={<Header/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/shipping"  element={<Shipping/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/shipping"  element={<Footer/>}/>
               </Routes>
+
+
+
               <Routes>
-              <Route  path="/store"  element={<Bottom/>}/>
+                <Route  path="/shippingcost"  element={<Header/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/shippingcost"  element={<ShippingCost/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/shippingcost"  element={<Footer/>}/>
               </Routes>
+
               
           </Router>
 
@@ -97,7 +124,9 @@ function App(props) {
 
 
 const mapStateToProps = (state) => {
-
+  return {
+    user: state.userState.user,
+  }
 }
 
 

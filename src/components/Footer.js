@@ -16,12 +16,7 @@ const Footer = (props) => {
         <Footers>
             <LEFT> 
             <table>
-                <tr>
-                    <td onClick={(e) => nav("contact",0,0)}>
-                     Contact us &nbsp; <RiMessage2Line/>
-                    </td>
-                </tr>
-
+             
                 <tr>
                     <td>
                      <a  href={process.env.REACT_APP_FACE_PAGE_LINK}>Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
