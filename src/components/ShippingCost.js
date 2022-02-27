@@ -213,10 +213,12 @@ max-width:100%;
 min-width:100%;
 height: auto;
 min-height:auto;
+overflow-x: hidden;
+
 div{
 display: block;   
-overflow: scroll;
-
+overflow-y: scroll;
+overflow-x: hidden;
 }
 }
 
@@ -363,8 +365,8 @@ margin: 0px;
 height: 900px;
 min-height:900px;
 max-height:900px;
-overflow-y: hidden;
-
+overflow-y: scroll;
+overflow-x: hidden;
 
 #shipping_method{
 height: 20px;
@@ -374,6 +376,18 @@ text-align:center;
 padding-bottom:50px;
 }
 
+}
+
+
+#SecondSectionmail{
+height: 45px;
+min-height:45px;
+overflow: hidden;
+}
+
+
+#Location{
+overflow-x: hidden;
 }
 `;
 

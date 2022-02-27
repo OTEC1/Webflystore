@@ -83,11 +83,9 @@ const Shipping = (props) =>{
   return (
     <Container>
          <h5>Shipping details </h5>
-
          <div>
             <Address>
                 
-
                     <div id='SecondSectionmail'>
                          <input id='email' placeholder="Email"  value={email} onChange={(e)=> { setEmail(e.target.value);  setinputs(inpusts +1) } }/>  
                         
@@ -109,8 +107,6 @@ const Shipping = (props) =>{
                          <input placeholder="City"  value={city} onChange={(e)=> { setcity(e.target.value);  setinputs(inpusts +1) } }/>  
                     </div>
                 
-
-
                     <div id='MidSection'>
                          <select>
                             <option>
@@ -125,9 +121,7 @@ const Shipping = (props) =>{
                             </option>     
                          </select> 
 
-
                          <input placeholder="Postal Code"  value={postal} onChange={(e)=> {setPostal(e.target.value); setinputs(inpusts +1)} }/>
-
                     </div>
                          
 
@@ -215,10 +209,12 @@ max-width:100%;
 min-width:100%;
 height: auto;
 min-height:auto;
+
+
 div{
 display: block;   
-overflow: scroll;
-
+overflow-y: scroll;
+overflow-x: hidden;
 }
 }
 
@@ -281,6 +277,7 @@ height: 50px;
 margin: 10px;
 display: flex;
 justify-content:space-around;
+
 #email{
 width: 67%;
 margin-left:10px;
@@ -291,11 +288,9 @@ width: 20%;
 display: flex;
 font-size:9pt;
 padding: 10px;
-
 label{
 margin-top:3px;
 }
-
 }
 
 }
@@ -307,7 +302,6 @@ width: 100%;
 height: 50px;
 margin: 10px;
 justify-content:space-around;
-
 select{
 width: 25%;
 border-radius: 5px;
@@ -321,11 +315,16 @@ border:0.5px solid #E6E6E6;
 @media(max-width:768px){
 width:100%;
 min-width:100%;
+max-width:100%;
 margin: 0px;
+padding: 0px;
 height: 700px;
 min-height:700px;
 max-height:700px;
-overflow-y: hidden;
+
+
+
+
 
 
 ::-webkit-scrollbar {
@@ -340,11 +339,14 @@ display: flex;
 flex-direction:column;
 height: 120px;
 min-height:120px;
+
+
 input{
 width: 85%;
 min-width:85%;
 padding: 15px;
 }
+
 }
 
 
@@ -359,8 +361,20 @@ margin-left:4px;
 margin-right:4px;
 margin-top:12px;
 }
-
 }
+
+
+#SecondSectionmail{
+height: 45px;
+min-height:45px;
+overflow: hidden;
+
+#email{
+margin-left:0px;
+}
+}
+
+
 
 #MidSection{
 height: 150px;
@@ -376,9 +390,9 @@ margin-top:5px;
 }
 
 input{
-width: 90%;
-max-width:90%;
-min-width:90%;
+width: 89%;
+max-width:89%;
+min-width:89%;
 margin-top:5px;
 }
 
