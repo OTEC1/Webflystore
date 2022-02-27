@@ -146,7 +146,9 @@ const Item = (props) => {
 
 
     const checkout = (e) => {
-        history("/shipping");
+
+        if(localStorage.getItem("cart"))
+                 history("/shipping");
     
         // let none_signin_user = uuid4();
         // let cartstate = [];

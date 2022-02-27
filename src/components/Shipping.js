@@ -52,30 +52,33 @@ const Shipping = (props) =>{
         
   }
 
-
-  const GET = () => {
-      let list = JSON.parse(sessionStorage.getItem("buyersessiondetails"));
-         if(list){
-                setempty(false);
-                setFname(list[0]);
-                setLname(list[1]);
-                setAddress(list[2]);
-                setcity(list[3]);
-                setPhone(list[6]);
-                setPostal(list[7]);
-                setEmail(list[8]); 
-         }     
-  }
-
   
   const selectLocation = () => {
-    if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 && postal.length > 0 && phone.length > 0 )
-            history("/shippingcost")
+    if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 && postal.length > 0 && phone.length > 0 ){
+            history("/shippingcost"); SAVE(1);
+    }else if(localStorage.getItem("buyervalutdetails"))
+        LoadUser(JSON.parse(localStorage.getItem("buyervalutdetails")));
     else
         alert("Pls fill out shipping details ! ")
   }
 
 
+  const GET = () => {
+    LoadUser(JSON.parse(sessionStorage.getItem("buyersessiondetails")));   
+ }
+
+   function LoadUser(list) {
+    if(list){
+           setempty(false);
+           setFname(list[0]);
+           setLname(list[1]);
+           setAddress(list[2]);
+           setcity(list[3]);
+           setPhone(list[6]);
+           setPostal(list[7]);
+           setEmail(list[8]); 
+    }  
+  }
 
   return (
     <Container>
@@ -132,7 +135,7 @@ const Shipping = (props) =>{
                         <input placeholder='Phone' value={phone}  onChange={(e) => { setPhone(e.target.value); setinputs(inpusts +1) } }/>
                         </div>  
 
-                        <NextStep empty={empty ? true : false}   call={1}  saved={localStorage.getItem("buyervalutdetails") ? true : false} fun={selectLocation} info1="Use saved details"  info2="Continue to Shipping method" />
+                        <NextStep empty={empty ? true : false}   call={1}  saved={localStorage.getItem("buyervalutdetails") ? true : false} fun={selectLocation} info1="Return to cart"  info2="Continue to Shipping method" />
 
                           
             
@@ -325,6 +328,10 @@ max-height:700px;
 overflow-y: hidden;
 
 
+::-webkit-scrollbar {
+display: none;
+}
+
 
 
 
@@ -435,6 +442,7 @@ display: flex;
 align-items:center;
 justify-content:space-between;
 
+
 h4{
 padding: 5px;
 }
@@ -501,6 +509,8 @@ width:100%;
 min-width:100%;
 padding: 0px;
 margin:0px;
+margin-top:100px;
+
 
 #DisplayList{
 width: 100%;
@@ -516,6 +526,7 @@ display: none;
 #HouseOrders{
 min-height:100px;
 height: 100px;
+max-height:100px;
 min-width: 100%;
 width: 100%;
 margin:0px;
@@ -537,6 +548,9 @@ min-width:40%;
 padding: 10px;
 margin-top:10px;
 position: relative;
+max-height:100px;
+overflow: hidden;
+
 
 
 img{

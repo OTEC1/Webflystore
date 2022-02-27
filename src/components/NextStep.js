@@ -1,23 +1,39 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function NextStep(props) {
-
+    const history = useNavigate();
      
     const checkfunction = () => {
+
         if(props.call == 1){
             props.fun();
-            window.screenTop(0,0);
-        }else{
+            window.scrollTo(0,0);
+        }else if(props.call == 1){
             props.fun1();
-            window.screenTop(0,0);
+            window.scrollTo(0,0);
         }
+         
     } 
+
+
+    const Navigate = () => {
+
+        if(props.call == 1)
+            history("/model/"+DOC([0])+"/"+DOC([1]))
+        else
+            history("/shipping")
+    }
+
+    function DOC(n){
+       return JSON.parse(sessionStorage.getItem("lastDoc"))[n];
+    }
 
   return (
          <NextSte empty={props.empty}>
-            <button id='btn1' > &#8592;  {props.info1}</button>
-            {props.saved ? <button id='btn3'>Use saved details</button> : ""}
+            <button id='btn1' onClick={(e) => Navigate()}> &#8592;  {props.info1}</button>
+            {props.saved ? <button id='btn3' onClick={(e) => checkfunction()}>Use saved details</button> : ""}
             <button  id='btn2' onClick={(e) => checkfunction()}>{props.info2} </button>
         </NextSte>
   

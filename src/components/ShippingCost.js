@@ -31,9 +31,7 @@ const ShippingCost = (props) =>{
 
 
 
-  const SaveIfValid = () => {
-   
-  }
+
 
 
   const column = (n,price,local) => {
@@ -42,6 +40,46 @@ const ShippingCost = (props) =>{
   }
   const Return2details = () => {
       history("/shipping")
+
+
+         // let none_signin_user = uuid4();
+
+        // if(n === 1){
+        //     let cartstate = [];
+        //     cartstate  = JSON.parse(localStorage.getItem("cart"));
+        //     console.log(cartstate);
+        //     for(let d=0; d<cartstate.length; d++){
+        //             if(d === 0){
+        //                         let payload = {
+        //                             User:{
+        //                             to: sessionStorage.getItem("token"),
+        //                         },
+        //                         payload:{
+        //                             id: cartstate[d].name,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: "New Order",
+        //                             doc_id:cartstate[d].doc_id,
+        //                             pic: cartstate[d].img_url
+        //                         },
+        //                         options: {
+        //                             notification: {
+        //                             badge: 1,
+        //                             sound: "ping.aiff",
+        //                             body: cartstate[d].img_url,
+        //                             id: cartstate[d].doc_id,
+        //                             email: props.user ? props.user.email :none_signin_user,
+        //                             item: cartstate[d].name,
+        //                             pic: cartstate[d].img_url
+        //                             }
+        //                         }
+        //                     }
+        //                 Notify(payload);
+        //             }
+        //      }
+        //     sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
+        // }
+       // localStorage.removeItem("cart");
+       
   }
 
 
@@ -58,13 +96,15 @@ const ShippingCost = (props) =>{
                                      <tbody>
                                                 <tr>
                                                     <td>
-                                                        Contact  &nbsp;&nbsp;&nbsp;&nbsp;  {JSON.parse(sessionStorage.getItem("buyersessiondetails"))[8]}
+                                                        Contact  &nbsp;&nbsp;&nbsp;&nbsp;  {JSON.parse(sessionStorage.getItem("buyersessiondetails")) ? JSON.parse(sessionStorage.getItem("buyersessiondetails"))[8] : ""}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        Ship to: {   
+                                                        Ship to: {  
+                                                        JSON.parse(sessionStorage.getItem("buyersessiondetails")) ? 
                                                             JSON.parse(sessionStorage.getItem("buyersessiondetails")).map((v,i) => i !== 8 ? <label>{v}</label> : "" )
+                                                            : ""
                                                             }
                                                     </td>
                                                 </tr>
@@ -97,6 +137,7 @@ const ShippingCost = (props) =>{
 
             </Address>
 
+
             <CartTotal>
                 <div id='DisplayList'>
                     {localStorage.getItem("cart")  ? JSON.parse(localStorage.getItem("cart")).map((v,i) => 
@@ -112,14 +153,11 @@ const ShippingCost = (props) =>{
                             </div>
                         
                     ): ""
-                    }
-                   
+                    }  
                 </div>
 
                 <div id='lineSperator'></div>
-
                 <SubTotalSection>
-                    
                     <div  id='Subtotal'>
                         <h5>SubTotal:</h5>    <h2>{Currency()+ SUM(JSON.parse(localStorage.getItem("cart")))}</h2>
                     </div>
@@ -389,6 +427,7 @@ display: flex;
 align-items:center;
 justify-content:space-between;
 
+
 h4{
 padding: 5px;
 }
@@ -453,6 +492,44 @@ margin-right:auto;
 @media(max-width:768px){
 width:100%;
 min-width:100%;
+
+
+
+#DisplayList{
+
+    
+#HouseOrders{
+width: 90%;
+
+
+#HouseImg_{
+max-height:100px;
+overflow: hidden;
+width: 50%;
+min-width:50%;
+
+::-webkit-scrollbar {
+display: none;
+}
+
+img{
+width: 90px;
+min-width:90px;
+height: 80px;
+max-height:80px;
+object-fit:cover;
+background: #fff;
+padding: 5px;
+border-radius:10px;
+}
+
+
+}
+
+}
+
+}
+
 }
 `;
 

@@ -21,7 +21,8 @@ useEffect(() => {
 window.scrollTo(0,0);
 runnquery();
 props.LoadPost();
-
+let list = [frame,option];
+sessionStorage.setItem("lastDoc",JSON.stringify(list));
 },[frame])
 
 

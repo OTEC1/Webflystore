@@ -158,9 +158,11 @@ const  Header = (props) => {
          
 
                     <Search>
+
                         <div>
                             <input placeholder='Search for products' value={query}  onChange={(e) => setQuery(e.target.value)} />
                         </div>
+                        
                         <SearchIcon onClick={(e) => runquery()}>
                             <RiSearch2Line
                                 size={15}

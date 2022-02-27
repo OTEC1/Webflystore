@@ -87,6 +87,7 @@ object-fit:cover;
 
 button{
 position: absolute;
+padding: 5px;
 margin-top:20%;
 margin-left:45%;
 width: auto;
@@ -97,6 +98,7 @@ color: #000;
 z-index:999;
 border-radius:20px;
 font-weight:800;
+
 font-family: "Poppins", sans-serif;
 cursor: pointer;box-shadow: inset 0 0 0 1px rgba(0 0 0 /60%),inset 0 0 0 2px rgba(0 0 0 /0%) inset 0 0 0 1px rgba(0 0 0 /0);
 box-shadow: inset 0 0 0 1px rgba(0 0 0 /60%);
