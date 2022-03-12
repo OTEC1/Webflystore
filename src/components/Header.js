@@ -278,7 +278,7 @@ top:0;
 #mainview{
 height: 100vh;
 width: 100%;
-background-image: linear-gradient(to top right,#002FAD, #8CC5F1);
+background-image: linear-gradient(to top right,#BA5833, #EC9335);
 }
 
 
