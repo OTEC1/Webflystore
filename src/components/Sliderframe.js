@@ -68,7 +68,7 @@ min-height:80vh;
 top: 0;
 width: 100%;
 padding: 0;
-margin-top: 65px;
+margin-top: 50px;
 
 
 div{

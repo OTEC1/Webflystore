@@ -50,15 +50,11 @@ const Footer = (props) => {
 
                 <tr>
                     <td>
-                    Kokocarft policy  &nbsp;<RiCopyrightLine/> 
+                       Webflystore Policy  &nbsp;<RiCopyrightLine/> 
                     </td>
                 </tr>
 
-                <tr>
-                    <td onClick={(e) => nav("contact",0,0)}>
-                     Connect  &nbsp;<RiTeamLine/> 
-                    </td>
-                </tr>
+              
 
                 <tr>
                     <td  onClick={(e) => nav("about",800,800)}>
@@ -92,12 +88,14 @@ const Footers = styled.div`
 position: relative;
 height: auto;
 width: 100%;
-background-image: linear-gradient(to top right,#BA5833, #EC9335);
+background:#006eff;
 bottom: 0;
 display: flex;
 flex-wrap:wrap;
+margin-top:30px;
+clip-path: ellipse(138% 100% at 7.76% 100%);
 table{
-padding-top:50px;
+padding-top:70px;
 padding-bottom:50px;
 }
 @media(max-width:768px){

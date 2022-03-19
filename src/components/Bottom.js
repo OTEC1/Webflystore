@@ -45,15 +45,16 @@ const Bottom = (props) => {
 
 const Container = styled.div`
 position: relative;
-height: 70vh;
+height: 50vh;
 width: 100%;
-background: #f5f5f5;
 display: flex;
 justify-content:center;
 align-items:center;
 flex-wrap:wrap;
 overflow-y:scroll;
 padding-top:50px;
+padding-bottom:100px;
+
 
 
 ::-webkit-scrollbar {

@@ -160,8 +160,8 @@ position: absolute;
 right: 0;
 width: 25%;
 height: 100vh;
-background: #f5f5f5;
 z-index:999999;
+
 
 
 

@@ -148,7 +148,7 @@ const  Header = (props) => {
         <Container>
             <Content>
                    <Webdealit onClick={homeNav}>
-                     <h5>Kokocraft.ng</h5> 
+                     <h5>Webflystore</h5> 
                     </Webdealit>
 
 
@@ -247,15 +247,15 @@ const  Header = (props) => {
 
 
 const Container = styled.div`  
-background-image: linear-gradient(to top right,#BA5833, #EC9335);
+background:#006eff;
 left: 0;
 padding: 0  24px;
 position:  fixed;
 top: 0;
 width: 100%;
 z-index: 99999;
-height: 60px;
-
+height: 50px;
+border-bottom: 0.5px solid #E9E9E9;
 `;
 
 
