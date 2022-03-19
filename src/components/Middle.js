@@ -19,7 +19,7 @@ const   Middle =  (props) => {
   
     return (
         <Component>
-               {props.post1 !== null ? <Sliderframe post1={props.post1} /> : <div id="home"><Loader type="Oval"  color="#EC9335"/></div>}
+               {props.post1 !== null ? <Sliderframe post1={props.post1} /> : <div id="home"><Loader type="Oval"  color="#006eff"/></div>}
                <MiddleBottom>
                     <div>{weekly}</div>
                </MiddleBottom>

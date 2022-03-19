@@ -278,7 +278,7 @@ top:0;
 #mainview{
 height: 100vh;
 width: 100%;
-background-image: linear-gradient(to top right,#BA5833, #EC9335);
+background:#006eff;
 }
 
 
@@ -504,7 +504,7 @@ justify-content: center;
 align-items: center;
 position: fixed;
 bottom: 0;
-background-image: linear-gradient(to top right,#BA5833, #EC9335);
+background: #006eff;
 }
 `;
 

@@ -99,6 +99,9 @@ padding-top:70px;
 padding-bottom:50px;
 }
 @media(max-width:768px){
+flex-wrap:wrap;
+height:auto;
+clip-path: ellipse(267% 100% at -36.8% 100%);
 }
 `;
 
@@ -127,8 +130,7 @@ color: #f5f5f5;
 }
 }
 @media(max-width:768px){
-border-top:1px solid #fff;
-margin-top:35px;
+margin-top:25px;
 width: 90%;
 }
 `;
@@ -137,9 +139,6 @@ width: 90%;
 const MIDDLE = styled.div`
 width: 30%;
 height: 100%;
-
-
-
 tr td{
 margin: 10px;
 font-weight:500;
