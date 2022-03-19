@@ -19,21 +19,21 @@ const Footer = (props) => {
              
                 <tr>
                     <td>
-                     <a  href={process.env.REACT_APP_FACE_PAGE_LINK}>Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
+                     <a  href="https://web.facebook.com/webflystore">Like our Page on</a>  &nbsp;<RiFacebookBoxLine/> 
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>
-                      <a href="https://www.instagram.com/invites/contact/?i=o8y51paupmy0&utm_content=3qn7nqj">Follow us on </a>  &nbsp;<RiInstagramLine/> 
+                      <a href="https://www.instagram.com/webflystore_/">Follow us on </a>  &nbsp;<RiInstagramLine/> 
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>
-                      <a href="https://wa.me/message/3WPQF6FPTMA5O1">Connect with us  </a>   &nbsp; <RiWhatsappLine/> 
+                      <a href="#">Connect with us  </a>   &nbsp; <RiWhatsappLine/> 
                     </td>
                 </tr>
 
