@@ -49,18 +49,17 @@ width: 100%;
 display: flex;
 overflow-x:scroll;
 
-
 ::-webkit-scrollbar {
 display: none;
 }
-
-
 
 div{
 width: 200px;
 min-width:200px;
 margin: 20px;
-height: 280px;
+height: auto;
+max-height:280px;
+min-height:100px;
 border-radius:10px;
 background: #f5f5f5;
 font-family: "Poppins", sans-serif;

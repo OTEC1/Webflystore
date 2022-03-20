@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FacebookProvider, {Login} from 'react-facebook-sdk'
 import {RiFacebookBoxFill, RiGoogleFill} from 'react-icons/ri'
 import {signOutGoogleApi,getUserAuth, signInAPIGoogle,signInfacebookApi,handleError}  from  '../actions'
+import axios from "axios";
 
 
 const SignInMethod = (props) => {
@@ -10,7 +11,6 @@ const SignInMethod = (props) => {
     const reset =  (e) => {
         props.sendRequestToModel(e);
     };
-
 
     const logout = (e) => {
         props.sendRequestToModel(e);
@@ -30,7 +30,9 @@ const SignInMethod = (props) => {
     }
 
 
-    
+
+
+  
 
 
     return<>

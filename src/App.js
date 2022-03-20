@@ -15,6 +15,8 @@ import './App.css';
 import db from './firebase';
 import Shipping from './components/Shipping';
 import ShippingCost from './components/ShippingCost';
+import Cancel from './components/Cancel';
+import Capture from './components/Capture';
  
 function App(props) {
 
@@ -114,6 +116,28 @@ function App(props) {
                 <Route  path="/shippingcost"  element={<Footer/>}/>
               </Routes>
 
+
+              <Routes>
+                <Route  path="/cancel"  element={<Header/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/cancel"  element={<Cancel/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/cancel"  element={<Footer/>}/>
+              </Routes>
+
+
+
+              <Routes>
+                <Route  path="/capture"  element={<Header/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/capture"  element={<Capture/>}/>
+                </Routes>
+                <Routes>
+                <Route  path="/capture"  element={<Footer/>}/>
+              </Routes>
               
           </Router>
 

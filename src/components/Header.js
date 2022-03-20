@@ -130,14 +130,14 @@ const  Header = (props) => {
                 <div  id='mainview'>
                     <button onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
                     <Searchs>
-                        <div>
+                        {/* <div>
                             <input placeholder='Search for products' value={query}  onChange={(e) => setQuery(e.target.value)} />
                         </div>
                         <SearchIcons onClick={(e) => runquery()}>
                             <RiSearch2Line
                                 size={15}
                                 color='#000'/>
-                        </SearchIcons>
+                        </SearchIcons> */}
                     </Searchs>
                 </div>   
            </ShowDiv>
@@ -158,16 +158,14 @@ const  Header = (props) => {
          
 
                     <Search>
-
-                        <div>
+                        {/* <div>
                             <input placeholder='Search for products' value={query}  onChange={(e) => setQuery(e.target.value)} />
                         </div>
-                        
                         <SearchIcon onClick={(e) => runquery()}>
                             <RiSearch2Line
                                 size={15}
                                 color='#000'/>
-                        </SearchIcon>
+                        </SearchIcon> */}
                     </Search>
 
 

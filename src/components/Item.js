@@ -384,7 +384,7 @@ const Item = (props) => {
                                        </BottomChain>
 
                                         <MoreContent>       
-                                               {list2.map((v,i) => <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={150}  width={250}  img={true}  />)}
+                                               {list2.map((v,i) => <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={120}  width={120}  img={true}  />)}
                                         </MoreContent>  
 
                                     </Item_meta_data>
@@ -733,18 +733,15 @@ margin-left:5px;
 }
 
 button{
-margin:10px;
-width:90%;
-height:auto;
+width:70%;
+height:40px;
 background-color:#FF5D16;
-border-radius:2px;
-border:none;
-padding:5px;
-color:#fff;
-font-weight:600;
+border: none;
 cursor: pointer;
-padding-bottom: 10px;
-bottom:0px;
+bottom: 0px;
+border-radius:5px;
+color:#fff;
+margin-left:15px;
 }
 
 #cart{

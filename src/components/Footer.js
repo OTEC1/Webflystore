@@ -57,7 +57,7 @@ const Footer = (props) => {
               
 
                 <tr>
-                    <td  onClick={(e) => nav("about",800,800)}>
+                    <td  onClick={(e) => nav("about",600,600)}>
                      Disclaimer  &nbsp;<RiSafeFill/> 
                     </td>
                 </tr>
@@ -92,16 +92,18 @@ background:#006eff;
 bottom: 0;
 display: flex;
 flex-wrap:wrap;
-margin-top:30px;
+margin-top:50px;
+padding-left:100px;
 clip-path: ellipse(138% 100% at 7.76% 100%);
 table{
-padding-top:70px;
+padding-top:100px;
 padding-bottom:50px;
 }
 @media(max-width:768px){
 flex-wrap:wrap;
 height:auto;
 clip-path: ellipse(267% 100% at -36.8% 100%);
+padding-left:0px;
 }
 `;
 

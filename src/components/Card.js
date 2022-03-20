@@ -8,6 +8,7 @@ import {CloudinaryContext, Image} from 'cloudinary-react'
 
 
 
+//Component Called from two Views *Bottom and Item*
 const Card = (props) => {
 
 
@@ -29,7 +30,8 @@ const Card = (props) => {
           <CloudinaryContext cloudName="otecdealings">
              <Image id="items" publicId={"Kokocarft/"+props.img_url+".jpg"}></Image>
           </CloudinaryContext>
-        :    <CloudinaryContext cloudName="otecdealings">
+         
+         : <CloudinaryContext cloudName="otecdealings">
                <Image id="home" publicId={"Kokocarft/"+props.img_url+".jpg"}></Image>
          </CloudinaryContext>}
 
@@ -61,8 +63,10 @@ const Card = (props) => {
 const CardShow = styled.div`
 height: ${(props) => `${props.height}px`};
 min-height: ${(props) => `${props.height}px`};
+max-height: ${(props) => `${props.height}px`};
 width: ${(props) => `${props.width}px`};
 min-width:${(props) => `${props.width}px`};
+max-width:${(props) => `${props.width}px`};
 box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 margin:20px;
 border-radius:10px;
@@ -77,8 +81,12 @@ object-fit:cover;
 
 #items{
 border-radius:10px;
-width: 100%;
-height: 100%;
+height: ${(props) => `${props.height}px`};
+min-height: ${(props) => `${props.height}px`};
+max-height: ${(props) => `${props.height}px`};
+width: ${(props) => `${props.width}px`};
+min-width:${(props) => `${props.width}px`};
+max-width:${(props) => `${props.width}px`};
 object-fit:cover;
 }
 

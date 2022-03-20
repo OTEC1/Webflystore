@@ -133,7 +133,7 @@ const ShippingCost = (props) =>{
                     </div>
                     
 
-                    <NextStep empty={empty ? true : false} call={2}  fun1={Return2details} info1="Return to customer information"  info2="Continue to payment method" />
+                    <NextStep empty={empty ? true : false} call={empty ? 0 : 2}  fun1={Return2details} info1="Return to customer information"  info2="Continue to payment method" />
 
             </Address>
 
@@ -152,7 +152,7 @@ const ShippingCost = (props) =>{
                                 <h4>{Currency() + v.price}</h4>
                             </div>
                         
-                    ): ""
+                      ) : ""
                     }  
                 </div>
 

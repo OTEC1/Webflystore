@@ -1,22 +1,31 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function NextStep(props) {
     const history = useNavigate();
      
     const checkfunction = () => {
-
         if(props.call == 1){
             props.fun();
             window.scrollTo(0,0);
-        }else if(props.call == 1){
-            props.fun1();
-            window.scrollTo(0,0);
+        }else if(props.call == 2) {
+            initPayment('');
         }
          
     } 
 
+    const initPayment = (payload) => {
+        axios.post('http://localhost:6002/chau02-b4019/us-central1/webfly/authpayment',payload)
+            .then(res => {
+                    window.location.href = res.data;
+            }).catch(err =>{
+                console.log(err)
+            })
+
+    }
+    
 
     const Navigate = () => {
 

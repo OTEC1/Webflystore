@@ -64,17 +64,14 @@ const About = (props) => {
                                 <RiSafe2Fill  size={25}/>
                                 &nbsp;&nbsp;
                                    
-                                The Product provided by Webflystore  on webflystore.web.app
-                                is for general informational purposes only. 
-                                 All information on the Site is provided in good faith, 
-                                 however we make no representation or warranty of any kind, express or implied, 
-                                 regarding the accuracy, adequacy, validity, 
-                                reliability, availability or completeness of any Product on the Site 
+                                The Product provided by Webflystore on webflystore.web.app
+                                are sold in good faith and state. 
+                                However we make no representation or warranty of any kind, express or implied, 
+                                by misuse from the end user  reliability, availability or completeness of any Product on the Site 
                       
-
                                 Pls note Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of
-                                the use of the website  or reliance on any information provided on the site.
-                                 Your use of the site   and your reliance on any information on the site is solely at your own risk.
+                                the use of the website or reliance on any information provided on the site.
+                                 Your use of the site  and your reliance on any information on the site is solely at your own risk.
                                  Thanks from the team @ webflystore.web.app 
                                 
                             </h5>
@@ -95,7 +92,7 @@ const Container = styled.div`
 display: flex;
 height: 100vh;
 padding-bottom:700px;
-background: #F3AB44;
+background: #f5f5f5;
 
 div{
 border-radius:10px;
@@ -113,7 +110,7 @@ tr td{
 display: flex;
 #div1{
 width: 45%;
-color: #f5f5f5;
+color:#000;
 font-family: "Poppins", sans-serif;
 margin-top:200px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
@@ -128,7 +125,7 @@ font-size:10pt;
 #div2{
 margin-left:auto;
 width: 45%;
-color: #f5f5f5;
+color:#000;
 font-family: "Poppins", sans-serif;
 margin-top:50px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
@@ -142,7 +139,7 @@ font-size:9pt;
 
 #div3{
 width: 45%;
-color: #f5f5f5;
+color:#000;
 font-family: "Poppins", sans-serif;
 margin-top:50px;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
@@ -160,7 +157,7 @@ margin-left:auto;
 margin-right:auto;
 margin-top:150px;
 width: 45%;
-color: #f5f5f5;
+color:#000;
 font-family: "Poppins", sans-serif;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 padding: 30px; 
