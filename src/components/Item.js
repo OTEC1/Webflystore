@@ -149,7 +149,7 @@ const Item = (props) => {
 
     const checkout = (e) => {
         if(localStorage.getItem("cart")){
-                 window.screenTop(0,0);
+                 window.scrollTo(0,0);
                  history("/shipping");  
                   
         }  

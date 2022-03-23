@@ -246,7 +246,7 @@ export function sendIncart(cart,cartSessionId,id){
                 });
         }
         
-        if(cart.length > 0)
+        if(cart.length > 0 && id.length > 0)
             setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
                     order_id:id,
                     status: false,
@@ -270,7 +270,6 @@ export function RouterReview(doc_id,review,user) {
 
 
 export function Notify(payload){
-    console.log(payload);
     axios.post("https://us-central1-webflystore.cloudfunctions.net/webfly/paymentstatus",payload)
         .then(res => {
             console.log(res.data.message);

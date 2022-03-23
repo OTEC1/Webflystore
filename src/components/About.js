@@ -18,43 +18,12 @@ const About = (props) => {
                         <td>
                           <h5 id='div1'>
                             <RiStore3Line size={25}/>
-                             &nbsp;&nbsp; Kokocraft is an online store that ...
+                             &nbsp;&nbsp; webflystore is product from  webfly.click we provide our 
+                             customer with quality and abstract design on fabrics.
                           </h5>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            <h5 id='div2'>
-                            <RiBook2Line size={25}/>
-                            &nbsp;&nbsp; Kokocraft is an online store that ...
-                            </h5>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            <h5 id='div3'>
-                                <RiSailboatLine  size={25}/>
-                                &nbsp;&nbsp; Kokocraft is an online store that...
-
-                            </h5>
-                        </td>
-                    </tr>
-
-
-
-
-                    <tr>
-                        <td>
-                            <h5 id='div2'>
-                            <RiRunLine size={25}/>
-                             &nbsp;&nbsp; Kokocraft is an online store that... 
-                            
-                            </h5>
-                        </td>
-                    </tr>
 
 
 

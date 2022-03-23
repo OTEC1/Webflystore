@@ -49,16 +49,8 @@ const Footer = (props) => {
                 </tr>
 
                 <tr>
-                    <td>
+                    <td  onClick={(e) => nav("about",350,350)}>
                        Webflystore Policy  &nbsp;<RiCopyrightLine/> 
-                    </td>
-                </tr>
-
-              
-
-                <tr>
-                    <td  onClick={(e) => nav("about",600,600)}>
-                     Disclaimer  &nbsp;<RiSafeFill/> 
                     </td>
                 </tr>
 

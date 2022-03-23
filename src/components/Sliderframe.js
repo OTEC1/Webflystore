@@ -122,9 +122,9 @@ margin-left:35%;
 
 
 div{
-height:70vh;
-min-height:70vh;
-max-height:70vh;
+height:100vh;
+min-height:100vh;
+max-height:100vh;
 
 img{
 width: 100%;

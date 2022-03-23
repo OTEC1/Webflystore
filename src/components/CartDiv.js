@@ -49,8 +49,7 @@ const CartDiv = (props) => {
 
 
     const checkout = (v,n) => {
-        window.screenTop(0,0);
-        
+        window.scrollTo(0,0);
         if(n === 1){
             props.openCart(v);
             history("/shipping");

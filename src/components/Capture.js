@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {useNavigate, useParams} from 'react-router-dom'
 import { Notify,sendIncart} from '../actions';
 import {v4 as uuid4} from 'uuid'
+import { connect } from "react-redux";
 
 function Capture(props) {
 
@@ -11,42 +12,44 @@ function Capture(props) {
   var n = url.searchParams.get("N");
   
   useEffect(() => {
- console.log(n);
+   console.log(props.user.email);
    let none_signin_user = uuid4();
         if(n == "COMPLETED" ){
             let cartstate = [];
-            cartstate  = JSON.parse(localStorage.getItem("cart"));
-            console.log(cartstate);
-            for(let d=0; d<cartstate.length; d++){
-                    if(d === 0){
-                                let payload = {
-                                    User:{
-                                    to: sessionStorage.getItem("token"),
-                                },
-                                payload:{
-                                    id: cartstate[d].name,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: "New Order",
-                                    doc_id:cartstate[d].doc_id,
-                                    pic: cartstate[d].img_url
-                                },
-                                options: {
-                                    notification: {
-                                    badge: 1,
-                                    sound: "ping.aiff",
-                                    body: cartstate[d].img_url,
-                                    id: cartstate[d].doc_id,
-                                    email: props.user ? props.user.email :none_signin_user,
-                                    item: cartstate[d].name,
-                                    pic: cartstate[d].img_url
-                                    }
+                cartstate  = JSON.parse(localStorage.getItem("cart"));
+                    if (cartstate != undefined && cartstate != null){
+                        for(let d=0; d<cartstate.length; d++){
+                                if(d === 0){
+                                            let payload = {
+                                                User:{
+                                                to: sessionStorage.getItem("token"),
+                                            },
+                                            payload:{
+                                                id: cartstate[d].name,
+                                                email: props.user ? props.user.email :none_signin_user,
+                                                item: "New Order",
+                                                doc_id:cartstate[d].doc_id,
+                                                pic: cartstate[d].img_url
+                                            },
+                                            options: {
+                                                notification: {
+                                                badge: 1,
+                                                sound: "ping.aiff",
+                                                body: cartstate[d].img_url,
+                                                id: cartstate[d].doc_id,
+                                                email: props.user ? props.user.email :none_signin_user,
+                                                item: cartstate[d].name,
+                                                pic: cartstate[d].img_url
+                                                }
+                                            }
+                                        }
+                                      if(sessionStorage.getItem("token"))
+                                            Notify(payload);
                                 }
-                            }
-                        Notify(payload);
+                        }
+                        sendIncart(cartstate,props.user ? props.user.email : none_signin_user,sessionStorage.getItem("order_id") ? sessionStorage.getItem("order_id") : ""); 
+                      }
                     }
-             }
-            sendIncart(cartstate,props.user ? props.user.email :none_signin_user,sessionStorage.getItem("order_id")); 
-         }
         localStorage.removeItem("cart");   
   },[]);
 
@@ -54,7 +57,7 @@ function Capture(props) {
   return (
     <Container>
       <Div>
-        <h5>Payment Status has been sent to your email</h5>
+        <h5>Payment Status has been sent to your email. <br/> *If not found check Spam*</h5>
         <button onClick={(e) => history("/")}>Continue Shopping</button>
       </Div>
     </Container>
@@ -102,4 +105,19 @@ text-align:center;
 
 `;
 
-export default Capture
+
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.userState.user
+    }
+}
+
+
+const mapDispatchStatetoProps = (dispatch) => {
+
+}
+
+
+
+export default connect(mapStateToProps,mapDispatchStatetoProps)(Capture)
