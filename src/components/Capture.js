@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {useNavigate, useParams} from 'react-router-dom'
 import { Notify,sendIncart} from '../actions';
 import {v4 as uuid4} from 'uuid'
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 function Capture(props) {
 
@@ -12,7 +12,7 @@ function Capture(props) {
   var n = url.searchParams.get("N");
   
   useEffect(() => {
-   console.log(props.user.email);
+   console.log(sessionStorage.getItem("signInUser"),"Here")
    let none_signin_user = uuid4();
         if(n == "COMPLETED" ){
             let cartstate = [];
@@ -26,9 +26,9 @@ function Capture(props) {
                                             },
                                             payload:{
                                                 id: cartstate[d].name,
-                                                email: props.user ? props.user.email :none_signin_user,
+                                                email: sessionStorage.getItem("signInUser") ?  sessionStorage.getItem("signInUser") : none_signin_user,
                                                 item: "New Order",
-                                                doc_id:cartstate[d].doc_id,
+                                                doc_id: cartstate[d].doc_id,
                                                 pic: cartstate[d].img_url
                                             },
                                             options: {
@@ -37,7 +37,7 @@ function Capture(props) {
                                                 sound: "ping.aiff",
                                                 body: cartstate[d].img_url,
                                                 id: cartstate[d].doc_id,
-                                                email: props.user ? props.user.email :none_signin_user,
+                                                email: sessionStorage.getItem("signInUser") ?  sessionStorage.getItem("signInUser") : none_signin_user,
                                                 item: cartstate[d].name,
                                                 pic: cartstate[d].img_url
                                                 }
@@ -47,7 +47,7 @@ function Capture(props) {
                                             Notify(payload);
                                 }
                         }
-                        sendIncart(cartstate,props.user ? props.user.email : none_signin_user,sessionStorage.getItem("order_id") ? sessionStorage.getItem("order_id") : ""); 
+                        sendIncart(cartstate, sessionStorage.getItem("signInUser") ? sessionStorage.getItem("signInUser") : none_signin_user, sessionStorage.getItem("order_id") ? sessionStorage.getItem("order_id") : "",JSON.parse(sessionStorage.getItem("buyersessiondetails"))); 
                       }
                     }
         localStorage.removeItem("cart");   
@@ -96,6 +96,8 @@ cursor:pointer;
 }
 h5{
 margin: 20px;
+text-align:center;
+align-items:center;
 }
 
 @media(max-width:768px){
@@ -108,16 +110,10 @@ text-align:center;
 
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.userState.user
-    }
-}
+  return{
+      user: state.userState.user,
+  };
+};
 
 
-const mapDispatchStatetoProps = (dispatch) => {
-
-}
-
-
-
-export default connect(mapStateToProps,mapDispatchStatetoProps)(Capture)
+export default connect(mapStateToProps)(Capture);

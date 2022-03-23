@@ -121,7 +121,6 @@ const Item = (props) => {
    
     let sessioncart = []; let cartstate = [];
     const addItemtosessioncart = (v) => {
-        console.log(props.dataPass);
     if(props.dataPass != undefined && props.dataPass.length != 0){
 
             setResponse("Added to cart")

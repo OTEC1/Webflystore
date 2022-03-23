@@ -205,8 +205,10 @@ export function LoadLocations(){
 export function getUserAuth(data){
     return (dispatch) => {
             auth.onAuthStateChanged(async (use) => {
-                if(use)
+                if(use){
+                    window.sessionStorage.setItem("signInUser", use.email);
                     dispatch(setUser(use)) 
+                }
             });     
     };
 };
@@ -230,8 +232,9 @@ export function  addtocart(cart){
 
 
 
-export function sendIncart(cart,cartSessionId,id){
-    
+export function sendIncart(cart,cartSessionId,id,userDetils){
+    console.log(cartSessionId)
+   //console.log(userDetils);
 
     if(cart.length > 0)
         for(let n=0; n<cart.length; n++){
@@ -242,17 +245,35 @@ export function sendIncart(cart,cartSessionId,id){
                     doc_id: cart[n].doc_id,
                     item_id: cart[n].item_id,
                     price: cart[n].price,
+                    email: "",
+                    country:"",
+                    state:"",
                     cartSessionId: id
                 });
-        }
-        
-        if(cart.length > 0 && id.length > 0)
+             }
+             
+        if(cart.length > 0 && id.length > 0){
             setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
                     order_id:id,
                     status: false,
                     email:cartSessionId,
                     timestamp: new Date().getTime(),
             });
+
+            setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
+                name: userDetils[0],
+                img_url: "",
+                quantity: userDetils[1],
+                doc_id: userDetils[2],
+                item_id: userDetils[3],
+                price: userDetils[6],
+                email: userDetils[8],
+                country: userDetils[5],
+                state: userDetils[4],
+                cartSessionId: id
+            });
+
+        }
 }
 
 

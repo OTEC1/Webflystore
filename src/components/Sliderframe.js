@@ -38,6 +38,7 @@ const   Sliderframe =  (props) => {
                 { show ? show : <Loader   width={25}  height={25} type="Oval"  color="#000"   /> }
             </button>
                     <Slider 
+                        id="indexs"
                         autoplay={1} 
                         duration={3500} 
                         previousButton={<RiArrowLeftCircleLine color="red"/>} 
@@ -47,7 +48,7 @@ const   Sliderframe =  (props) => {
                                 {list.map((v,i) => 
                                     v !== undefined ?
                                          <div key={i} onClick={(e) =>  navigates({frame: v.doc_id})}>
-                                            <CloudinaryContext cloudName="otecdealings">
+                                            <CloudinaryContext cloudName="otecdealings"  onClick={(e) =>  navigates({frame: v.doc_id})}>
                                                 <Image publicId={"Kokocarft/"+v.img_url+".jpg"}></Image>
                                             </CloudinaryContext>
                                         </div>
@@ -112,26 +113,24 @@ color: rgba(0, 0, 0, 0.75);
 
 
 @media(max-width: 768px){
-height: 200px;
-min-height:200px;
+height: 50vh;
+max-height:50vh;
+min-height:50vh;
+
 
 button{
 margin-top:45%;
 margin-left:35%;
+z-index:999;
 }
 
 
 div{
-height:100vh;
-min-height:100vh;
-max-height:100vh;
-
 img{
 width: 100%;
-height: 70vh;
+height: 100%;
 object-fit:cover;
 }
-
 }
 
 

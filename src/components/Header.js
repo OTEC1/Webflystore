@@ -21,20 +21,6 @@ const  Header = (props) => {
     const history = useNavigate();
 
 
-
-    
-
-    useEffect(() => {
-           if(sessionStorage.getItem("visitCount") === null) {
-                sessionStorage.setItem("visitCount","visited");  
-                //UPDATE();
-            }
-            window.addEventListener("beforeunload", (ev) => {  
-               sessionStorage.setItem("visitCount",null);
-            });
-    },[])
-
-
     const openCart = (e) =>{
         e.preventDefault();
         window.scrollTo(0,0);
@@ -50,16 +36,6 @@ const  Header = (props) => {
                        setisopen("close");
                     break;
             }
-    }
-
-
-    function UPDATE(){
-        axios.post(process.env.REACT_APP_UPDATE_VISIT_COUNT,{count:1})
-        .then(res => {
-            console.log(res.data.message,"Here")
-        }).catch(err => {
-            console.log(err);
-        })         
     }
 
 
@@ -82,12 +58,9 @@ const  Header = (props) => {
     }
     
 
-
     const runquery = () => {
         history("/productquery/"+query.toLowerCase());
     }
-
-
 
 
     function show(){
@@ -95,8 +68,6 @@ const  Header = (props) => {
         window.scrollTo(0,0);
     }
   
-
-
 
     const  sendRequestToModel = (event) => {
         event.preventDefault();
@@ -117,9 +88,6 @@ const  Header = (props) => {
                 break;
         };
         }
-
-
-    
 
    
 
