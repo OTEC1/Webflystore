@@ -57,7 +57,7 @@ function Capture(props) {
     <Container>
       <Div>
         <h5>Payment Status has been sent to your email</h5>
-        <button onClick={(e) => history("/")}> Go to homePage</button>
+        <button onClick={(e) => history("/")}>Continue Shopping</button>
       </Div>
     </Container>
   )
