@@ -87,7 +87,7 @@ const Shipping = (props) =>{
             <Address>
                 
                     <div id='SecondSectionmail'>
-                         <input id='email' placeholder="Email"  value={email} onChange={(e)=> { setEmail(e.target.value);  setinputs(inpusts +1) } }/>  
+                         <input id='email' placeholder="Pls enter a valid email"  value={email} onChange={(e)=> { setEmail(e.target.value);  setinputs(inpusts +1) } }/>  
                         
                           <div id='details_saver'>
                               <input type="checkbox" onChange={(e) => SaveIfValid()}/> <label>Save my details</label>  

@@ -36,50 +36,10 @@ const ShippingCost = (props) =>{
 
   const column = (n,price,local) => {
     setTotal(SUM2(JSON.parse(localStorage.getItem("cart")),price));
-    setRadio(n); setlocal(price); setempty(false);  setlocality(local);
+    setRadio(n); setlocal(price); setempty(false);  setlocality(local); sessionStorage.setItem("locationPrice",price);
   }
   const Return2details = () => {
-      history("/shipping")
-
-
-         // let none_signin_user = uuid4();
-
-        // if(n === 1){
-        //     let cartstate = [];
-        //     cartstate  = JSON.parse(localStorage.getItem("cart"));
-        //     console.log(cartstate);
-        //     for(let d=0; d<cartstate.length; d++){
-        //             if(d === 0){
-        //                         let payload = {
-        //                             User:{
-        //                             to: sessionStorage.getItem("token"),
-        //                         },
-        //                         payload:{
-        //                             id: cartstate[d].name,
-        //                             email: props.user ? props.user.email :none_signin_user,
-        //                             item: "New Order",
-        //                             doc_id:cartstate[d].doc_id,
-        //                             pic: cartstate[d].img_url
-        //                         },
-        //                         options: {
-        //                             notification: {
-        //                             badge: 1,
-        //                             sound: "ping.aiff",
-        //                             body: cartstate[d].img_url,
-        //                             id: cartstate[d].doc_id,
-        //                             email: props.user ? props.user.email :none_signin_user,
-        //                             item: cartstate[d].name,
-        //                             pic: cartstate[d].img_url
-        //                             }
-        //                         }
-        //                     }
-        //                 Notify(payload);
-        //             }
-        //      }
-        //     sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
-        // }
-       // localStorage.removeItem("cart");
-       
+      history("/shipping");
   }
 
 
@@ -192,6 +152,7 @@ margin-top:100px;
 margin-left:auto;
 margin-right:auto;
 text-align:center;
+padding-bottom:100px;
 
 
 h5{

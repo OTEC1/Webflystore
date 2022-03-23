@@ -32,7 +32,7 @@ const Bottom = (props) => {
               { list ? (
                 list.map((v,i) =>
                     v !== undefined && v !== null ?
-                        <Card  key={i} doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={350}  width={350}/>
+                        <Card  key={i} doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={350}  width={300}/>
                     : ""
                     )
               ):""}
@@ -45,7 +45,7 @@ const Bottom = (props) => {
 
 const Container = styled.div`
 position: relative;
-height: 50vh;
+height: 70vh;
 width: 100%;
 display: flex;
 justify-content:center;

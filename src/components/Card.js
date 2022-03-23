@@ -105,10 +105,7 @@ cursor: pointer;
 }
 
 @media(max-width:768px){
-margin: 5px;
-width: 90%;
-height: 350px;
-
+margin: 10px;
 }
 `;
 

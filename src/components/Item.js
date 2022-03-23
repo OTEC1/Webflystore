@@ -37,6 +37,7 @@ const Item = (props) => {
     const [thumbs, setThumbs] = useState(true);
     const [sectionToOpen, setSectionToOpen] = useState("none");
     const [timer, setTimeer] = useState(false);
+    let lists = []; let list1 = [];let list4 = [];
     let history = useNavigate();
     
 
@@ -104,9 +105,6 @@ const Item = (props) => {
     }
 
 
-
-
-    let lists = []; let list1 = [];let list4 = [];
     lists.push(props.dataPass);
  
 
@@ -123,21 +121,25 @@ const Item = (props) => {
    
     let sessioncart = []; let cartstate = [];
     const addItemtosessioncart = (v) => {
-       setResponse("Added to cart")
-       snackbar(timer ? 5000 : 3000); 
-       sessioncart = []
-       cartstate  = JSON.parse(localStorage.getItem("cart"));
+        console.log(props.dataPass);
+    if(props.dataPass != undefined && props.dataPass.length != 0){
 
-       if(cartstate)
-            for(var n=0; n <= cartstate.length; n++)
-                    if(cartstate[n] != null && cartstate[n] != undefined)
-                        sessioncart.push(cartstate[n]);
-      else
-        console.log("none")
+            setResponse("Added to cart")
+            snackbar(timer ? 5000 : 3000); 
+            sessioncart = []
+            cartstate  = JSON.parse(localStorage.getItem("cart"));
 
-        sessioncart.push(v);
-        localStorage.setItem("cart",JSON.stringify(sessioncart));
-        props.addtocart(0,"");
+            if(cartstate)
+                    for(var n=0; n <= cartstate.length; n++)
+                            if(cartstate[n] != null && cartstate[n] != undefined)
+                                sessioncart.push(cartstate[n]);
+            else
+                console.log("none")
+
+                sessioncart.push(v);
+                localStorage.setItem("cart",JSON.stringify(sessioncart));
+                props.addtocart(0,"");
+        };
 
     }
 
@@ -146,53 +148,8 @@ const Item = (props) => {
 
 
     const checkout = (e) => {
-
         if(localStorage.getItem("cart"))
-                 history("/shipping");
-    
-        // let none_signin_user = uuid4();
-        // let cartstate = [];
-        // cartstate  = JSON.parse(localStorage.getItem("cart"));
-
-        // if(cartstate){
-        //     for(let d=0; d<cartstate.length; d++){
-        //             if(d === 0){
-        //                         let payload = {
-        //                             User:{
-        //                             to: sessionStorage.getItem("token")
-        //                         },
-        //                         payload:{
-        //                             id: cartstate[d].name,
-        //                             email: props.user ? props.user.email :none_signin_user,
-        //                             item: "New Order",
-        //                             doc_id:cartstate[d].doc_id,
-        //                             pic: cartstate[d].img_url
-        //                         },
-        //                         options: {
-        //                             notification: {
-        //                             badge: 1,
-        //                             sound: "ping.aiff",
-        //                             body: cartstate[d].img_url,
-        //                             id: cartstate[d].doc_id,
-        //                             email: props.user ? props.user.email :none_signin_user,
-        //                             item: cartstate[d].name,
-        //                             pic: cartstate[d].img_url
-        //                             }
-        //                         }
-        //                     }
-        //                 Notify(payload);
-        //             }
-        //      }
-        //     sendIncart(cartstate,props.user ? props.user.email :none_signin_user); 
-        //     localStorage.removeItem("cart");
-        //     props.addtocart(1,"");
-        //     setResponse("Order has been placed !");
-            
-        //     snackbar( timer ? 5000 : 3000);
-            
-        //     }
-       
-           
+                 history("/shipping");     
     }
 
 
@@ -216,7 +173,6 @@ const Item = (props) => {
                             <>
                                     <Imagelayout>
                                         {props.model === "P" ?
-                                        
                                             <CloudinaryContext cloudName="otecdealings">
                                                <Image publicId={"Kokocarft/"+e.img_url+".jpg"}></Image>
                                             </CloudinaryContext>
@@ -384,7 +340,7 @@ const Item = (props) => {
                                        </BottomChain>
 
                                         <MoreContent>       
-                                               {list2.map((v,i) => <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={120}  width={120}  img={true}  />)}
+                                               {list2.map((v,i) => <Card  doc_id={v.doc_id}  name={v.name} price={v.price} img_url={v.img_url}  height={140}  width={140}  img={true}  />)}
                                         </MoreContent>  
 
                                     </Item_meta_data>

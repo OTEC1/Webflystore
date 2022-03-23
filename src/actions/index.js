@@ -230,9 +230,9 @@ export function  addtocart(cart){
 
 
 
-export function sendIncart(cart,cartSessionId){
+export function sendIncart(cart,cartSessionId,id){
     
-    let id = uuid4();
+
     if(cart.length > 0)
         for(let n=0; n<cart.length; n++){
                 setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
@@ -285,7 +285,6 @@ export function  formation(datas){
       datas = datas.charAt(0).toUpperCase() + datas.slice(1); 
     else
         datas = datas;
-        
       return datas;
 }
     
@@ -301,7 +300,7 @@ export  function updatePostlikes(count){
 }
 
 
-let n=2;
+let n=1;
 export function Currency(){
     return  n === 1 ? "$" : "₦"
 }
