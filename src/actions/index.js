@@ -270,7 +270,8 @@ export function RouterReview(doc_id,review,user) {
 
 
 export function Notify(payload){
-    axios.post(process.env.REACT_APP_NOTIFY,payload)
+    console.log(payload);
+    axios.post("https://us-central1-webflystore.cloudfunctions.net/webfly/paymentstatus",payload)
         .then(res => {
             console.log(res.data.message);
         }).catch(err => {

@@ -21,8 +21,12 @@ import Capture from './components/Capture';
 function App(props) {
 
   let list = [];
-  useEffect( async () => {
+  useEffect(() => {
     props.getUserAuth();
+  },[])
+
+
+  useEffect(async() => {
     const docRef = doc(db, process.env.REACT_APP_ADMIN, process.env.REACT_APP_DOC);
     const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -31,8 +35,10 @@ function App(props) {
          
       }else 
           console.log("Not found !");
-    
-  },[])
+
+      console.log(sessionStorage.getItem("token"));
+      
+  },[!sessionStorage.getItem("token")])
   
   return (
     <div className="App">

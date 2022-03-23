@@ -8,12 +8,12 @@ function Capture(props) {
 
   const history = useNavigate();
   var url = new URL(window.location.href);
-  var n = url.searchParams.get("n");
-
-  useEffect(() => {
+  var n = url.searchParams.get("N");
   
+  useEffect(() => {
+ console.log(n);
    let none_signin_user = uuid4();
-        if(n === "COMPLETED" ){
+        if(n == "COMPLETED" ){
             let cartstate = [];
             cartstate  = JSON.parse(localStorage.getItem("cart"));
             console.log(cartstate);
@@ -46,10 +46,8 @@ function Capture(props) {
                     }
              }
             sendIncart(cartstate,props.user ? props.user.email :none_signin_user,sessionStorage.getItem("order_id")); 
-        }
-        localStorage.removeItem("cart");
-     
-     
+         }
+        localStorage.removeItem("cart");   
   },[]);
 
 
