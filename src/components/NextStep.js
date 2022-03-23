@@ -89,8 +89,6 @@ border-radius:5px;
 }
 
 
-
-
 #btn2{
 height:50px;
 width: auto;
@@ -157,7 +155,7 @@ height:50px;
 margin-right:0px;
 font-size:9pt;
 padding: 3px;
-width: 90%;
+width: 50%;
 margin-top:15px;
 }
 

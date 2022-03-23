@@ -49,9 +49,7 @@ const CartDiv = (props) => {
 
 
     const checkout = (v,n) => {
-
-
-        
+        window.screenTop(0,0);
         
         if(n === 1){
             props.openCart(v);
@@ -61,6 +59,7 @@ const CartDiv = (props) => {
                 props.addtocart(1);
                 history("/");
         }
+      
 
     }
 
