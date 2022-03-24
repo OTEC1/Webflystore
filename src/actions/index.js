@@ -106,7 +106,7 @@ export function signOutGoogleApi(){
     console.log("Google");
     return (dispatch) => {
         auth.signOut().then(() => {
-            window.sessionStorage("signInUser",null);
+            sessionStorage.setItem("signInUser",null);
             dispatch(setUser(null));
         })
         .catch((err) => {

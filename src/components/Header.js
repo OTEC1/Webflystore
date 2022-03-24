@@ -377,7 +377,7 @@ height: 34px;
 border-color:#dce6f1;
 vertical-align:text-top;
 text-align:left;
-
+}
 }
 
 @media(max-width:1200px){
@@ -503,6 +503,15 @@ align-items: center;
 }
 
 
+&:hover, &:active{
+a{
+span{
+color:rgba(0,0,0,0.9);
+}
+}
+} 
+
+
 @media(max-width:1100px){
 width: 25%;
 text-align:left;
@@ -514,15 +523,6 @@ justify-content: center;
 align-items: center;
 margin-left:25px;
 white-space: nowrap;
-}
-} 
-
-
-&:hover, &:active{
-a{
-span{
-color:rgba(0,0,0,0.9);
-}
 }
 }
 `;
@@ -562,7 +562,6 @@ margin-top:10px;
 
 const TabInfo1 = styled(TabInfo)`
 margin-left:-10px;
-
 `;
 
 
@@ -579,8 +578,6 @@ const MenuBar = styled(Grooves)`
 font-weight:none;
 font-size:20pt;
 color: #b8b9be;
-
-
 `;
 
 
