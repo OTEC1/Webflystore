@@ -1,5 +1,5 @@
 import {auth, provider, signInWithPopup}  from '../firebase';
-import { collection,getDocs, where, query, setDoc,doc,orderBy} from 'firebase/firestore/lite';
+import { collection,getDocs, where, query, setDoc,doc,orderBy, serverTimestamp} from 'firebase/firestore/lite';
 import { SET_USER ,SET_PROMISE, GET_POSTS1, GET_POSTS2, CART_ORDER, REVIEWS,Locations} from './actionType';
 import { useNavigate } from 'react-router-dom';
 import { async } from '@firebase/util';
@@ -106,6 +106,7 @@ export function signOutGoogleApi(){
     console.log("Google");
     return (dispatch) => {
         auth.signOut().then(() => {
+            window.sessionStorage("signInUser",null);
             dispatch(setUser(null));
         })
         .catch((err) => {
@@ -233,9 +234,6 @@ export function  addtocart(cart){
 
 
 export function sendIncart(cart,cartSessionId,id,userDetils){
-    console.log(cartSessionId)
-   //console.log(userDetils);
-
     if(cart.length > 0)
         for(let n=0; n<cart.length; n++){
                 setDoc(doc(collection(db, process.env.REACT_APP_CART+cartSessionId),uuid4()),{
@@ -248,15 +246,17 @@ export function sendIncart(cart,cartSessionId,id,userDetils){
                     email: "",
                     country:"",
                     state:"",
-                    cartSessionId: id
+                    cartSessionId: id,
+                    timestamp: serverTimestamp()
                 });
              }
              
         if(cart.length > 0 && id.length > 0){
+
             setDoc(doc(collection(db, process.env.REACT_APP_CART1),id),{
-                    order_id:id,
+                    order_id: id,
                     status: false,
-                    email:cartSessionId,
+                    email: cartSessionId,
                     timestamp: new Date().getTime(),
             });
 
@@ -270,7 +270,8 @@ export function sendIncart(cart,cartSessionId,id,userDetils){
                 email: userDetils[8],
                 country: userDetils[5],
                 state: userDetils[4],
-                cartSessionId: id
+                cartSessionId: id,
+                timestamp: serverTimestamp()
             });
 
         }
@@ -333,7 +334,6 @@ return 0;
 
 
 export function SUM(cart_list){
-   
     let track=0,sum=0;
     if(cart_list){
         for(let n=0; n<cart_list.length; n++){
