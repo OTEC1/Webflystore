@@ -29,7 +29,8 @@ const   Sliderframe =  (props) => {
         let frame = x.frame;
         let option = "P"
         updatePostlikes(frame);
-        history('/model/'+frame+"/"+option)    
+        if(show)
+           history('/model/'+frame+"/"+option)    
     }
 
     return (

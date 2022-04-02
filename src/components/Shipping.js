@@ -5,6 +5,7 @@ import {CloudinaryContext, Image} from 'cloudinary-react'
 import { Currency, SUM } from '../actions';
 import { useNavigate } from 'react-router-dom';
 import NextStep from './NextStep';
+import axios from 'axios';
 
 const Shipping = (props) =>{
 
@@ -13,38 +14,45 @@ const Shipping = (props) =>{
   const [Lname, setLname] = useState('');
   const [address, setAddress] = useState('');
   const [city, setcity] = useState('');
-  const [country, setcountry] = useState('');
-  const [state, setstate] = useState('');
+  const [country, setcountry] = useState([]);
+  const [states, setstates] = useState([]);
   const [phone, setPhone] = useState('');
   const [postal, setPostal] = useState('');
   const [email, setEmail] = useState('');
   const [inpusts, setinputs] = useState(0);
+  const [country1, setcountry1] = useState('');
+  const [state1, setstates1] = useState('');
+  let count = []; 
+  let countB = [];
+  let countC = [];
   const history = useNavigate();
 
 
 
 
   useEffect(() => {
-   if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0
-           && postal.length > 0 && phone.length > 0 &&  email.length > 0 ){
+   if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 && postal.length > 0 && phone.length > 0 &&  email.length > 0  && country1.length > 0 && state1.length > 0){
          setempty(false); SAVE(1);
    }else 
          setempty(true);
   },[inpusts])
 
-  useEffect(() => GET(),[]);
+  useEffect(() => {
+      GET();
+      GETCOUNTIES();
+},[]);
 
 
   const SaveIfValid = () => {
     if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 
-             && postal.length > 0 && phone.length > 0  &&  email.length > 0)
+             && postal.length > 0 && phone.length > 0  &&  email.length > 0 && country1.length > 0 && state1.length > 0)
                SAVE(2)
 
   }
 
 
   const SAVE = (n) => {
-    let list = [Fname,Lname,address,city,country,state,phone,postal,email];
+    let list = [Fname,Lname,address,city,country1,state1,phone,postal,email];
         if(n === 1)
             sessionStorage.setItem("buyersessiondetails", JSON.stringify(list));
         else
@@ -53,13 +61,14 @@ const Shipping = (props) =>{
   }
 
   
-  const selectLocation = () => {
-    if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 && postal.length > 0 && phone.length > 0 ){
+  const selectLocation = (n) => {
+    if(Fname.length > 0 && Lname.length > 0  && address.length > 0  && city.length > 0 && postal.length > 0 && phone.length > 0 && n != 2){
             history("/shippingcost"); SAVE(1);
-    }else if(localStorage.getItem("buyervalutdetails"))
+    }else if(localStorage.getItem("buyervalutdetails") && n == 2)
         LoadUser(JSON.parse(localStorage.getItem("buyervalutdetails")));
     else
-        alert("Pls fill out shipping details ! ")
+        alert("Pls fill out shipping details ! ");
+        console.log(n)
   }
 
 
@@ -68,21 +77,67 @@ const Shipping = (props) =>{
  }
 
    function LoadUser(list) {
-    if(list){
+       if(list){
            setempty(false);
            setFname(list[0]);
            setLname(list[1]);
            setAddress(list[2]);
            setcity(list[3]);
+           setstates1(list[4]);
+           setcountry1(list[5]);
            setPhone(list[6]);
            setPostal(list[7]);
            setEmail(list[8]); 
-    }  
+        }  
+  }
+
+
+ 
+  async function GETCOUNTIES () {
+      const coutries = await  fetch("https://countriesnow.space/api/v0.1/countries/states");
+      const res = await coutries.json();
+        res.data.map((v,i) => {
+            count.push(model(v.ios3,v.name));
+            countB.push(v);
+        })
+
+        count.unshift(model("Sel", "Select country"));
+        setcountry(count);
+        mapping(JSON.stringify(countB));
+  }
+
+
+  function model(ios3,name){
+    let map = {
+        node_v:{
+            iso3:ios3,
+            name:name
+         }
+      };
+    return map;
+  }
+
+
+  function mapping (data) {
+    window.sessionStorage.setItem("countrybastard",data);
+  }
+
+
+  const getStates = (e) => {
+      setstates1(e.target.value);  
+  }
+
+  
+  function  getCountry(e){
+       setcountry1(e.target.value);
+        for(let u=0; u < JSON.parse(window.sessionStorage.getItem("countrybastard")).length; u++)
+              if(JSON.parse(window.sessionStorage.getItem("countrybastard"))[u].name == e.target.value)
+                  setstates(JSON.parse(window.sessionStorage.getItem("countrybastard"))[u].states);
   }
 
   return (
     <Container>
-         <h5>Shipping details </h5>
+         <h5>Shipping details</h5>
          <div>
             <Address>
                 
@@ -108,31 +163,29 @@ const Shipping = (props) =>{
                     </div>
                 
                     <div id='MidSection'>
-                         <select>
-                            <option>
-                                Country
-                            </option>     
+                         <select onChange={getCountry}>
+                             {country.map((v) =>
+                                 <option>
+                                   {v.node_v.name}
+                                 </option> 
+                             )}
                          </select>  
 
-
-                         <select>
-                            <option>
-                                State
-                            </option>     
-                         </select> 
-
-                         <input placeholder="Postal Code"  value={postal} onChange={(e)=> {setPostal(e.target.value); setinputs(inpusts +1)} }/>
+                            <select onChange={getStates}>
+                                 {states.map((v) =>
+                                    <option>
+                                       {v.name}
+                                    </option>  
+                                )}
+                            </select>
+                        <input placeholder="Postal Code"  value={postal} onChange={(e)=> {setPostal(e.target.value); setinputs(inpusts +1)} }/>
                     </div>
                          
-
-                       <div id='SecondSection'>
+                    <div id='SecondSection'>
                         <input placeholder='Phone' value={phone}  onChange={(e) => { setPhone(e.target.value); setinputs(inpusts +1) } }/>
-                        </div>  
+                    </div>  
 
-                        <NextStep empty={empty ? true : false}   call={1}  saved={localStorage.getItem("buyervalutdetails") ? true : false} fun={selectLocation} info1="Return to cart"  info2="Continue to Shipping method" />
-
-                          
-            
+                    <NextStep empty={empty ? true : false}   call={1}  saved={localStorage.getItem("buyervalutdetails") ? true : false} fun={selectLocation} info1="Return to cart"  info2="Continue to Shipping method" />
             </Address>
 
             <CartTotal>
@@ -303,9 +356,12 @@ height: 50px;
 margin: 10px;
 justify-content:space-around;
 select{
-width: 25%;
+width: 30%;
 border-radius: 5px;
 border:0.5px solid #E6E6E6;
+}
+input{
+width:20%;
 }
 }
 

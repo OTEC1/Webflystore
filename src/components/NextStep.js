@@ -10,30 +10,42 @@ function NextStep(props) {
     const history = useNavigate();
     const [load, setLoad] = useState(false);
      
-    const checkfunction = () => {
+    const checkfunction = (n) => {
         if(props.call == 1){
-            props.fun();
+            props.fun(n);
             window.scrollTo(0,0);
         }else if(props.call == 2) {
             setLoad(true);
             sessionStorage.setItem("order_id",uuid4());
             initPayment(SUM2(JSON.parse(localStorage.getItem("cart")),parseInt(sessionStorage.getItem("locationPrice"))));
         }
+
+        console.log(props.call);
          
     } 
 
     const initPayment = (payload) => {
-        axios.post(process.env.REACT_APP_ENDPOINT,
-            {Store:'Webflystore',data: payload, line1: JSON.parse(sessionStorage.getItem("buyersessiondetails"))[2], 
-                  line2: JSON.parse(sessionStorage.getItem("buyersessiondetails"))[3],
-                        mail:JSON.parse(sessionStorage.getItem("buyersessiondetails"))[8],order_id:sessionStorage.getItem("order_id"),
-                            postalcode:JSON.parse(sessionStorage.getItem("buyersessiondetails"))[7]})
-            .then(res => {
-                    window.location.href = res.data;
-                    setLoad(false)
-            }).catch(err =>{
-                console.log(err)
-            })
+        let payloads =  JSON.parse(sessionStorage.getItem("buyersessiondetails"));
+        axios.post(process.env.REACT_APP_ENDPOINT,{
+                        Store:'Webflystore',
+                        data: payload, 
+                        name: payloads[0],
+                        surname: payload[1],
+                        line1: payloads[2], 
+                        line2: payloads[3],
+                        mail:  payloads[8],
+                        order_id: sessionStorage.getItem("order_id"),
+                        postalcode: payloads[7],
+                        country: payloads[4],
+                        state: payloads[5]}
+                        ).then(res => {
+                            window.location.href = res.data;
+                            setLoad(false)
+                    }).catch(err =>{
+                        console.log(err)
+                    })
+
+                    console.log(payloads, payload)
 
     }
     
@@ -53,8 +65,8 @@ function NextStep(props) {
   return (
          <NextSteps empty={props.empty}>
             <button id='btn1' onClick={(e) => Navigate()}> &#8592;  {props.info1}</button>
-            {props.saved ? <button id='btn3' onClick={(e) => checkfunction()}>Use saved details</button> : ""}
-            <button  id='btn2' onClick={(e) => checkfunction()}>
+            {props.saved ? <button id='btn3' onClick={(e) => checkfunction(2)}>Use saved details</button> : ""}
+            <button  id='btn2' onClick={(e) => checkfunction(1)}>
                 {load ? <div><Loader type="Oval"  color="#fff"  height={20}  width={20} /></div>
                 : props.info2} 
            </button>

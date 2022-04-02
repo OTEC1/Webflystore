@@ -30,10 +30,6 @@ const ShippingCost = (props) =>{
   },[props.locations])
 
 
-
-
-
-
   const column = (n,price,local) => {
     setTotal(SUM2(JSON.parse(localStorage.getItem("cart")),price));
     setRadio(n); setlocal(price); setempty(false);  setlocality(local); sessionStorage.setItem("locationPrice",price);
@@ -42,10 +38,9 @@ const ShippingCost = (props) =>{
       history("/shipping");
   }
 
-
   return (
     <Container>
-         <h5>Shipping details </h5>
+         <h5>Verify details</h5>
          <div>
             <Address>
                
@@ -65,7 +60,7 @@ const ShippingCost = (props) =>{
                                                         JSON.parse(sessionStorage.getItem("buyersessiondetails")) ? 
                                                             JSON.parse(sessionStorage.getItem("buyersessiondetails")).map((v,i) => i !== 8 ? <label>{v}</label> : "" )
                                                             : ""
-                                                            }
+                                                            } 
                                                     </td>
                                                 </tr>
 
@@ -74,7 +69,7 @@ const ShippingCost = (props) =>{
                                                         Method: 
                                                         &nbsp; &nbsp; &nbsp;
                                                         <span>
-                                                        {locality}
+                                                         {locality} 
                                                         </span>
                                                         
                                                     </td>
@@ -89,7 +84,7 @@ const ShippingCost = (props) =>{
                          <div id='shipping_method'>
                             Shipping method
                          </div>
-                         {options != null ? options.map((v,i) => <Cards> <input  type="radio" checked={ radio === i ? true : false} onChange={(e) => column(i,v.Price,v.location1)} /> <span>{v.location1}</span> &nbsp;&nbsp;  <label>{Currency() + v.Price}</label> </Cards>) : "Loading..." }
+                         {options != null ? options.map((v,i) => <Cards> <input  type="radio" checked={ radio === i ? true : false} onChange={(e) => column(i,v.Price,v.location1)} /> <span>{v.location1}</span> &nbsp;&nbsp;  <label>{Currency() + v.Price}</label> </Cards>) : "Loading..." } 
                     </div>
                     
 
@@ -126,7 +121,6 @@ const ShippingCost = (props) =>{
                         <h5>Shipping:</h5>     <h4>{ Currency()+local}</h4>
                     </div>
                         
-
 
                     <div  id='Subtotal'>
                         <h5>Total:</h5>    <h2>{Currency()+ total}</h2>
